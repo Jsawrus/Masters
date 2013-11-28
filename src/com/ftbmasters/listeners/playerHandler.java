@@ -41,8 +41,15 @@ public class playerHandler implements Listener {
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(ChatColor.GREEN + name + " has joined the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
+				if (!evt.getPlayer().hasPlayedBefore()) {
+					pl.sendMessage(ChatColor.GREEN + "This is their first time on the server!");
+				}
 			} else {
+				if (evt.getPlayer().hasPlayedBefore()) {
 				pl.sendMessage(ChatColor.GREEN + name + " has joined the game");
+				} else {
+					pl.sendMessage(ChatColor.GREEN + name + " has joined the game for the first time");
+				}
 			}
 		}
 		
