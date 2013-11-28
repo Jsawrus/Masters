@@ -1,11 +1,11 @@
 package com.ftbmasters.listeners;
 
-import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,15 +24,14 @@ public class playerHandler implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, pl);
 	}
 	
-	private HashMap<String, InetAddress> address = new HashMap<String, InetAddress>();
+	private HashMap<String, String> address = new HashMap<String, String>();
 	private HashMap<String, Long> slept = new HashMap<String, Long>();
 	
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void login(final PlayerLoginEvent evt) {
-		InetAddress ip = evt.getAddress();
+		String ip = evt.getAddress().toString().substring(1, evt.getAddress().toString().length());
 		String name = evt.getPlayer().getName();
 		
-		System.out.println("Player " + name + " has logged in with IP Address " + ip + ".");
 		address.put(name, ip);
 	}
 	
@@ -61,8 +60,6 @@ public class playerHandler implements Listener {
 		// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
 		String[] colours = {"&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&10", "&11", "&12"};
 		int random = new Random().nextInt(11);
-		
-		
 		
 		evt.getPlayer().setDisplayName(replaceColour(colours[random]) + evt.getPlayer().getName());
 		evt.getPlayer().setPlayerListName(replaceColour(colours[random]) + evt.getPlayer().getName());
@@ -147,18 +144,23 @@ public class playerHandler implements Listener {
 				
 				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 					pl.sendMessage(ChatColor.RED + name + " slept through the night!");
+					evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
+					evt.getPlayer().getWorld().setTime(0);
 				}
 				
 			} else {
-				evt.getPlayer().sendMessage(ChatColor.RED + "Please try again in " + (120 - minutes) + " minutes!");
+				Integer intg = new Integer((int) (120 - minutes));
+				evt.getPlayer().sendMessage(ChatColor.RED + "Please try again in " + intg + " minutes!");
+				evt.setCancelled(true);
 			}
 			
 			
 		} else {
 			slept.put(name, time);
-			
 			for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 				pl.sendMessage(ChatColor.RED + name + " slept through the night!");
+				evt.getPlayer().getWorld().setTime(0);
+				evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
 			}
 		}
 	}
