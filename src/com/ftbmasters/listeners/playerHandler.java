@@ -29,7 +29,7 @@ public class playerHandler implements Listener {
 	
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void login(final PlayerLoginEvent evt) {
-		InetAddress ip = evt.getRealAddress();
+		InetAddress ip = evt.getAddress();
 		String name = evt.getPlayer().getName();
 		
 		System.out.println("Player " + name + " has logged in with IP Address " + ip + ".");
@@ -59,12 +59,30 @@ public class playerHandler implements Listener {
 		
 		// name colouring.
 		// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
-		String[] colours = {"&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&A", "&B", "&C", "&D", "&E"};
-		int random = new Random().nextInt(13);
+		String[] colours = {"&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&10", "&11", "&12"};
+		int random = new Random().nextInt(11);
 		
-		evt.getPlayer().setDisplayName(colours[random] + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(colours[random] + evt.getPlayer().getName());
+		
+		
+		evt.getPlayer().setDisplayName(replaceColour(colours[random]) + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(replaceColour(colours[random]) + evt.getPlayer().getName());
 	}
+	
+	public static String replaceColour(String str) {
+        str = str.replace("&1", ChatColor.RED.toString());
+        str = str.replace("&2", ChatColor.DARK_RED.toString());
+        str = str.replace("&3", ChatColor.YELLOW.toString());
+        str = str.replace("&4", ChatColor.GOLD.toString());
+        str = str.replace("&5", ChatColor.GREEN.toString());
+        str = str.replace("&6", ChatColor.DARK_GREEN.toString());
+        str = str.replace("&7", ChatColor.AQUA.toString());
+        str = str.replace("&8", ChatColor.DARK_AQUA.toString());
+        str = str.replace("&9", ChatColor.BLUE.toString());
+        str = str.replace("&10", ChatColor.DARK_BLUE.toString());
+        str = str.replace("&11", ChatColor.LIGHT_PURPLE.toString());
+        str = str.replace("&12", ChatColor.DARK_PURPLE.toString());
+        return str;
+    }
 	
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void quit(final PlayerQuitEvent evt) {
