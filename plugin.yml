@@ -1,0 +1,8 @@
+name: Masters
+author: iPhysX
+version: 1.0
+main: com.ftbmasters.Masters
+commands:
+  masters:
+    usage: /masters
+    description: Masters related commands (OP)
