@@ -1,11 +1,12 @@
 package com.ftbmasters.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.ftbmasters.Masters;
 
 public class commandHandler implements CommandExecutor {
 
@@ -20,10 +21,12 @@ public class commandHandler implements CommandExecutor {
 			Player player = (Player) sender;
 			
 			if (player.hasPermission("masters.plugin.op")) {
-				// for lack of anything useful at this time..
-				player.sendMessage(ChatColor.GREEN + "This server is running " + Bukkit.getVersion() + ".");
+				player.sendMessage(ChatColor.GREEN + "Reloaded Masters Data.");
+				Masters.fileHandlers();
+				return true;
 			} else {
 				player.sendMessage(ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action.");
+				return true;
 			}
 		}
 		return false;

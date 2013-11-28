@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.bukkit.ChatColor;
+
 public class fileHandler {
 	
 	File file = new File("");
@@ -44,7 +46,9 @@ public class fileHandler {
 				e.printStackTrace();
 			}
 			
-			contents = scanner.nextLine();
+			String[] tempContents = scanner.nextLine().split(">");
+			contents = ChatColor.WHITE + "<" + ChatColor.GOLD + tempContents[0] + ChatColor.WHITE + ">" + ChatColor.YELLOW + tempContents[1];
+			
 		} else {
 			contents = null;
 		}

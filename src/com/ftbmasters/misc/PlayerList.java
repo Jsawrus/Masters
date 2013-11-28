@@ -10,11 +10,10 @@ public class PlayerList {
 		StringBuilder string = new StringBuilder();
 		
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			string.append(pl.getDisplayName() + ChatColor.DARK_GRAY + ", ");
+			string.append(pl.getDisplayName() + ChatColor.RED + ", ");
 		}
 		
-		player.sendMessage(ChatColor.DARK_GRAY + "Online Players (" + ChatColor.WHITE + Bukkit.getServer().getOnlinePlayers().length + ChatColor.DARK_GRAY + ")");
-		player.sendMessage(string.toString().substring(0, string.toString().length() - 2) + ChatColor.WHITE + ".");
+		player.sendMessage(ChatColor.RED + "Online Players (" + ChatColor.WHITE + Bukkit.getServer().getOnlinePlayers().length + ChatColor.RED + "): " + string.toString().substring(0, string.toString().length() - 2) + ChatColor.RED + ".");
 		
 		string.setLength(0);
 		string.replace(0, 0, " ");

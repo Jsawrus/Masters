@@ -35,7 +35,7 @@ public class Masters extends JavaPlugin {
 		getCommand("masters").setExecutor(new commandHandler());
 	}
 	
-	private void fileHandlers() {
+	public static void fileHandlers() {
 		new fileHandler(new File("plugins" + File.separator + "Masters" + File.separator + "motd.cfg"));
 	}
 
