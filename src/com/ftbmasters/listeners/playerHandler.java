@@ -144,9 +144,10 @@ public class playerHandler implements Listener {
 				
 				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 					pl.sendMessage(evt.getPlayer().getDisplayName() + " slept through the night!");
-					evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
-					evt.getPlayer().getWorld().setTime(0);
 				}
+				
+				evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
+				evt.getPlayer().getWorld().setTime(0);
 				
 			} else {
 				Integer intg = new Integer((int) (120 - minutes));
@@ -159,9 +160,10 @@ public class playerHandler implements Listener {
 			slept.put(name, time);
 			for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 				pl.sendMessage(evt.getPlayer().getDisplayName() + " slept through the night!");
-				evt.getPlayer().getWorld().setTime(0);
-				evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
 			}
+			
+			evt.getPlayer().getWorld().setTime(0);
+			evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
 		}
 	}
 }
