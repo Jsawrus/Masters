@@ -18,6 +18,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
+import com.ftbmasters.misc.PlayerList;
+
 public class playerHandler implements Listener {
 	
 	public playerHandler(Plugin pl) {
@@ -40,7 +42,10 @@ public class playerHandler implements Listener {
 		String name = evt.getPlayer().getName();
 		evt.setJoinMessage(null);
 		
+		new PlayerList(evt.getPlayer());
+		
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			if (pl.getName() == evt.getPlayer().getName()) break;
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(ChatColor.GREEN + name + " has joined the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 				if (!evt.getPlayer().hasPlayedBefore()) {
@@ -87,6 +92,7 @@ public class playerHandler implements Listener {
 		evt.setQuitMessage(null);
 		
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			if (pl.getName() == evt.getPlayer().getName()) break;
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(ChatColor.GREEN + name + " left the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 			} else {
@@ -101,6 +107,7 @@ public class playerHandler implements Listener {
 		evt.setLeaveMessage(null);
 		
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			if (pl.getName() == evt.getPlayer().getName()) break;
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(ChatColor.GREEN + name + " was kicked/crashed " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 			} else {
