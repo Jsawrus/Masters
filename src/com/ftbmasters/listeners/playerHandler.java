@@ -2,13 +2,13 @@ package com.ftbmasters.listeners;
 
 import java.net.InetAddress;
 import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -22,6 +22,7 @@ public class playerHandler implements Listener {
 	}
 	
 	private HashMap<String, InetAddress> address = new HashMap<String, InetAddress>();
+	private HashMap<String, Long> slept = new HashMap<String, Long>();
 	
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void login(final PlayerLoginEvent evt) {
@@ -72,6 +73,43 @@ public class playerHandler implements Listener {
 				pl.sendMessage(ChatColor.GREEN + name + " was kicked/crashed " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 			} else {
 				pl.sendMessage(ChatColor.GREEN + name + " has left the game");
+			}
+		}
+	}
+	
+	@EventHandler (priority = EventPriority.NORMAL)
+	public void getInBed(final PlayerBedEnterEvent evt) {
+		// super accurate nanotime ?!
+		Long time = System.nanoTime();
+		String name = evt.getPlayer().getName();
+		
+		if (Bukkit.getServer().getOnlinePlayers().length <= 1) return;
+		
+		if (slept.containsKey(name)) {
+			//check to see if currenttime - slepttime is different by 120m.
+			long sleptTime = slept.get(name);
+			long timeDifference = (time - sleptTime);
+			
+			double minutes = (double)timeDifference / 1000000000.0 / 60;
+			
+			if (minutes >= 120) {
+				slept.remove(name);
+				slept.put(name, time);
+				
+				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+					pl.sendMessage(ChatColor.RED + name + " slept through the night!");
+				}
+				
+			} else {
+				evt.getPlayer().sendMessage(ChatColor.RED + "Please try again in " + (120 - minutes) + " minutes!");
+			}
+			
+			
+		} else {
+			slept.put(name, time);
+			
+			for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+				pl.sendMessage(ChatColor.RED + name + " slept through the night!");
 			}
 		}
 	}
