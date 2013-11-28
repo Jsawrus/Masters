@@ -2,12 +2,15 @@ package com.ftbmasters.listeners;
 
 import java.net.InetAddress;
 import java.util.HashMap;
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -52,8 +55,15 @@ public class playerHandler implements Listener {
 				}
 			}
 		}
-		
 		address.remove(name);
+		
+		// name colouring.
+		// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
+		String[] colours = {"&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&A", "&B", "&C", "&D", "&E"};
+		int random = new Random().nextInt(13);
+		
+		evt.getPlayer().setDisplayName(colours[random] + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(colours[random] + evt.getPlayer().getName());
 	}
 	
 	@EventHandler (priority = EventPriority.NORMAL)
@@ -82,6 +92,20 @@ public class playerHandler implements Listener {
 				pl.sendMessage(ChatColor.GREEN + name + " has left the game");
 			}
 		}
+	}
+	
+	@EventHandler (priority = EventPriority.NORMAL)
+	public void chat(final AsyncPlayerChatEvent evt) {
+		// lets add in some colour
+		
+		String message = evt.getMessage();
+		String name = evt.getPlayer().getDisplayName();
+		
+		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			pl.sendMessage("<" + name + ChatColor.WHITE + "> " + message);
+		}
+		
+		evt.setCancelled(true);
 	}
 	
 	@EventHandler (priority = EventPriority.NORMAL)
