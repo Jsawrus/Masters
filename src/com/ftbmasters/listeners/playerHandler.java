@@ -65,11 +65,11 @@ public class playerHandler implements Listener {
 		String[] colours = {"&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&10", "&11", "&12"};
 		int random = new Random().nextInt(11);
 		
-		evt.getPlayer().setDisplayName(replaceColour(colours[random]) + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(replaceColour(colours[random]) + evt.getPlayer().getName());
+		evt.getPlayer().setDisplayName(replaceColour(colours[random]).replace("1", "") + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(replaceColour(colours[random]).replace("1", "") + evt.getPlayer().getName());
 		
 		new PlayerList(evt.getPlayer());
-		evt.getPlayer().sendMessage(ChatColor.DARK_GRAY + fileHandler.contents);
+		evt.getPlayer().sendMessage(fileHandler.contents);
 	}
 	
 	public static String replaceColour(String str) {
