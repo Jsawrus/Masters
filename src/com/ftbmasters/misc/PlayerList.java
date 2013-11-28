@@ -10,7 +10,7 @@ public class PlayerList {
 		StringBuilder string = new StringBuilder();
 		
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			string.append(pl.getDisplayName() + ", ");
+			string.append(pl.getDisplayName() + ChatColor.DARK_GRAY + ", ");
 		}
 		
 		player.sendMessage(ChatColor.DARK_GRAY + "Online Players (" + ChatColor.WHITE + Bukkit.getServer().getOnlinePlayers().length + ChatColor.DARK_GRAY + ")");

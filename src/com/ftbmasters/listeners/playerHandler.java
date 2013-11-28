@@ -41,9 +41,7 @@ public class playerHandler implements Listener {
 	public void join(final PlayerJoinEvent evt) {
 		String name = evt.getPlayer().getName();
 		evt.setJoinMessage(null);
-		
-		new PlayerList(evt.getPlayer());
-		
+	
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.getName() == evt.getPlayer().getName()) break;
 			if (pl.hasPermission("masters.plugin.op")) {
@@ -68,6 +66,8 @@ public class playerHandler implements Listener {
 		
 		evt.getPlayer().setDisplayName(replaceColour(colours[random]) + evt.getPlayer().getName());
 		evt.getPlayer().setPlayerListName(replaceColour(colours[random]) + evt.getPlayer().getName());
+		
+		new PlayerList(evt.getPlayer());
 	}
 	
 	public static String replaceColour(String str) {
