@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
+import com.ftbmasters.IO.fileHandler;
 import com.ftbmasters.misc.PlayerList;
 
 public class playerHandler implements Listener {
@@ -68,6 +69,7 @@ public class playerHandler implements Listener {
 		evt.getPlayer().setPlayerListName(replaceColour(colours[random]) + evt.getPlayer().getName());
 		
 		new PlayerList(evt.getPlayer());
+		evt.getPlayer().sendMessage(ChatColor.DARK_GRAY + fileHandler.contents);
 	}
 	
 	public static String replaceColour(String str) {

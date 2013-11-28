@@ -1,8 +1,11 @@
 package com.ftbmasters;
 
+import java.io.File;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.ftbmasters.IO.fileHandler;
 import com.ftbmasters.commands.commandHandler;
 import com.ftbmasters.listeners.blockHandler;
 import com.ftbmasters.listeners.playerHandler;
@@ -16,6 +19,7 @@ public class Masters extends JavaPlugin {
 	public void onEnable() {
 		this.plugin = this;
 		
+		fileHandlers();
 		eventHandlers();
 		commandHandlers();
 	}
@@ -29,6 +33,10 @@ public class Masters extends JavaPlugin {
 	
 	private void commandHandlers() {
 		getCommand("masters").setExecutor(new commandHandler());
+	}
+	
+	private void fileHandlers() {
+		new fileHandler(new File("plugins" + File.separator + "Masters" + File.separator + "motd.cfg"));
 	}
 
 }
