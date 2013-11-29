@@ -128,7 +128,7 @@ public class playerHandler implements Listener {
 					pl.sendMessage(evt.getPlayer().getDisplayName() + " slept through the night!");
 				}
 				
-				evt.getPlayer().eject();
+				evt.setCancelled(true);
 				evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
 				evt.getPlayer().getWorld().setTime(0);
 				
@@ -145,7 +145,8 @@ public class playerHandler implements Listener {
 				pl.sendMessage(evt.getPlayer().getDisplayName() + " slept through the night!");
 			}
 			
-			evt.getPlayer().eject();
+			
+			evt.setCancelled(true);
 			evt.getPlayer().getWorld().setTime(0);
 			evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
 		}
