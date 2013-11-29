@@ -9,7 +9,8 @@ import org.bukkit.ChatColor;
 
 public class fileHandler {
 	
-	File file = new File("");
+	private File file;
+
 	public static String contents = null;
 	
 	public fileHandler(File file) {
@@ -20,11 +21,7 @@ public class fileHandler {
 	}
 	
 	public boolean fileExists() {
-		if (this.file.exists()) {
-			return true;
-		} else {
-			return false;
-		}
+        return this.file.exists();
 	}
 	
 	public void createFile() {

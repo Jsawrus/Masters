@@ -5,12 +5,9 @@ import java.io.File;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.ftbmasters.listeners.*;
 import com.ftbmasters.IO.fileHandler;
 import com.ftbmasters.commands.commandHandler;
-import com.ftbmasters.listeners.blockHandler;
-import com.ftbmasters.listeners.playerHandler;
-import com.ftbmasters.listeners.serverHandler;
-import com.ftbmasters.listeners.worldHandler;
 
 public class Masters extends JavaPlugin {
 	
@@ -29,6 +26,7 @@ public class Masters extends JavaPlugin {
 		new playerHandler(this.plugin);
 		new serverHandler(this.plugin);
 		new worldHandler(this.plugin);
+        new teleportHandler(this.plugin);
 	}
 	
 	private void commandHandlers() {
