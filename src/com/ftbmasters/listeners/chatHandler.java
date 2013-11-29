@@ -10,6 +10,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.Plugin;
 
+import com.ftbmasters.misc.Reloader;
+
 public class chatHandler implements Listener {
 	
 	public chatHandler(Plugin pl) {
@@ -43,6 +45,7 @@ public class chatHandler implements Listener {
 			}
 		} else if (msg.equalsIgnoreCase("/rl") || msg.equalsIgnoreCase("/reload")) {
 			if (evt.getPlayer().hasPermission("masters.plugin.op")) {
+				new Reloader(evt.getPlayer(), "reload");
 				return;
 			} else {
 				evt.getPlayer().sendMessage(ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action.");
