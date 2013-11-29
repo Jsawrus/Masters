@@ -60,15 +60,17 @@ public class playerHandler implements Listener {
 					pl.sendMessage(ChatColor.GREEN + name + " has joined the game for the first time");
 				}
 			}
+			
+			
 		}
 		
 		
 		// name colouring.
 		
-		int random = new Random().nextInt(11);
+		int random = new Random().nextInt(100);
 		
-		evt.getPlayer().setDisplayName(new Colorizer(colours[random]) + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(new Colorizer(colours[random]) + evt.getPlayer().getName());
+		evt.getPlayer().setDisplayName(new Colorizer(colours[random / 10]) + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(new Colorizer(colours[random / 10]) + evt.getPlayer().getName());
 		
 		new PlayerList(evt.getPlayer());
 		evt.getPlayer().sendMessage(fileHandler.contents);
