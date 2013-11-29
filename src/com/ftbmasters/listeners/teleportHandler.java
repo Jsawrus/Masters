@@ -2,14 +2,13 @@ package com.ftbmasters.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.Location;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.entity.Player;
-import org.fusesource.jansi.Ansi;
 
 public class teleportHandler implements Listener {
     public teleportHandler(Plugin pl) {
@@ -23,6 +22,7 @@ public class teleportHandler implements Listener {
             Location to = ev.getTo();
 
             if (Math.abs(from.getX() - to.getX()) <= 2 && Math.abs(from.getY() - to.getY()) <=2) {
+                ev.setCancelled(true);
                 this.teleportToBed(ev.getPlayer());
             }
         }
