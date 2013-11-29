@@ -1,7 +1,5 @@
 package com.ftbmasters;
 
-import java.io.File;
-
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,7 +34,7 @@ public class Masters extends JavaPlugin {
 	}
 	
 	public static void fileHandlers() {
-		new fileHandler(new File("plugins" + File.separator + "Masters" + File.separator + "motd.cfg"));
+		new fileHandler();
 	}
 
 }
