@@ -58,7 +58,7 @@ public class playerHandler implements Listener {
 				}
 			}
 		}
-		address.remove(name);
+		
 		
 		// name colouring.
 		// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
