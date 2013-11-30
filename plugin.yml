@@ -15,3 +15,6 @@ commands:
   invite:
     usage: /invite <player>
     description: Invites a player
+  tp:
+    usage: /tp <player> <player> || /tp <player>
+    description: Teleports a player

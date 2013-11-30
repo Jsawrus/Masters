@@ -43,6 +43,7 @@ public class Masters extends JavaPlugin {
 		getCommand("tell").setExecutor(new tellHandler());
 		getCommand("slap").setExecutor(new slapCommand());
 		getCommand("invite").setExecutor(new inviteCommand());
+		getCommand("tp").setExecutor(new teleportCommand());
 	}
 
 	public static void fileHandlers() {
