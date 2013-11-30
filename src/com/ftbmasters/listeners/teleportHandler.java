@@ -9,9 +9,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class teleportHandler implements Listener {
+    Plugin plugin;
+
     public teleportHandler(Plugin pl) {
+        this.plugin = pl;
         Bukkit.getPluginManager().registerEvents(this, pl);
     }
 
@@ -21,22 +25,36 @@ public class teleportHandler implements Listener {
             Location from = ev.getFrom();
             Location to = ev.getTo();
 
-            if (Math.abs(from.getX() - to.getX()) <= 2 && Math.abs(from.getY() - to.getY()) <=2) {
+            if (from.distance(to) < 1) {
                 ev.setCancelled(true);
                 this.teleportToBed(ev.getPlayer());
             }
         }
-
     }
 
-    private void teleportToBed(Player player) {
-        Location bed = player.getBedSpawnLocation();
-        Location spawn = Bukkit.getWorlds().get(0).getSpawnLocation();
-        if (bed == null)
-            player.teleport(spawn);
-        else
-            player.teleport(bed);
+    private void teleportToBed(final Player player) {
+        Location targetLocation = player.getBedSpawnLocation();
+        String message;
+        if (targetLocation == null) {
+            targetLocation = Bukkit.getWorld("world").getSpawnLocation();
 
-        player.chat(ChatColor.LIGHT_PURPLE + "You find yourself at your bed." + ChatColor.WHITE + " Was it a dream? ...");
+            message = ChatColor.LIGHT_PURPLE + "You find yourself at your bed." + ChatColor.WHITE + " Was it a dream? ...";
+        } else {
+            message = ChatColor.LIGHT_PURPLE + "You find yourself to the world spawn." + ChatColor.WHITE + " Was it a dream? ...";
+        }
+
+        final Location finalTargetLocation = targetLocation;
+        final String finalMessage = message;
+        new BukkitRunnable()
+        {
+            @Override
+            public void run()
+            {
+                player.teleport(
+                        finalTargetLocation,
+                        PlayerTeleportEvent.TeleportCause.PLUGIN);
+                player.sendMessage(finalMessage);
+            }
+        }.runTaskLater(this.plugin, 10);
     }
 }
