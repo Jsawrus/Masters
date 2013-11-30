@@ -60,10 +60,7 @@ public class playerHandler implements Listener {
 					pl.sendMessage(ChatColor.GREEN + name + " has joined the game for the first time");
 				}
 			}
-			
-			
 		}
-		
 		
 		// name colouring.
 		
