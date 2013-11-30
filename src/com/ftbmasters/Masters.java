@@ -28,6 +28,7 @@ public class Masters extends JavaPlugin {
 		new serverHandler(this.plugin);
 		new worldHandler(this.plugin);
 		new teleportHandler(this.plugin);
+		new TagWorker(this.plugin);
 	}
 
 	private void commandHandlers() {

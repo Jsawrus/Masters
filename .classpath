@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Jason/Desktop/mcpc-plus-1.6.4-R2.1-forge952-B150.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Jason/Desktop/Reloader.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jason/Desktop/TagAPI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
