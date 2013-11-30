@@ -1,15 +1,30 @@
 package com.ftbmasters.commands;
 
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 
-public class teleportCommand implements CommandExecutor {
+public class teleportCommand implements ICommandable {
+	private Plugin plugin;
+
+	public teleportCommand(Plugin plugin) {
+		this.plugin = plugin;
+	}
 
 	@Override
-	public boolean onCommand(CommandSender arg0, Command arg1, String arg2, String[] arg3) {
-		// soon..
-		return false;
+	public boolean run(CommandSender sender, Command command, String label, String[] args) {
+		// In the future ...
+		return true;
+	}
+
+	@Override
+	public String getPermission() {
+		return "op";
+	}
+
+	@Override
+	public boolean needPlayer() {
+		return true;
 	}
 
 }
