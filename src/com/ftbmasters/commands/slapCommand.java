@@ -11,43 +11,43 @@ import org.bukkit.util.Vector;
 
 public class slapCommand implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-    	if (!(sender instanceof Player)) {
-    		sender.sendMessage("Please send commands from in-game.");
-    		return true;
-    	}
-    	
-        if (cmd.getName().equalsIgnoreCase("slap"))  {
-        if (sender.hasPermission("masters.plugin.slap"))  {
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage("Please send commands from in-game.");
+			return true;
+		}
 
-        Player player = (Player) sender;
-        Player target;
-        String targetName = "Greg";
+		if (cmd.getName().equalsIgnoreCase("slap")) {
+			if (sender.hasPermission("masters.plugin.slap")) {
 
-        if (args.length == 0) {
-            target = player;
-            targetName = target.getName();
-        } else {
-            target = Bukkit.getServer().getPlayer(args[0]);
-            if (target == null) {
-                target = player;
-                targetName = args[0];
-            }
-        }
+				Player player = (Player) sender;
+				Player target;
+				String targetName = "Greg";
 
-        Bukkit.getServer().broadcastMessage(
-                String.format("%s%s slaps %s%s%s around a bit with a large %sTNT%s!",
-                        player.getName(), ChatColor.GOLD, ChatColor.RESET, targetName, ChatColor.GOLD, ChatColor.RED, ChatColor.RESET));
+				if (args.length == 0) {
+					target = player;
+					targetName = target.getName();
+				} else {
+					target = Bukkit.getServer().getPlayer(args[0]);
+					if (target == null) {
+						target = player;
+						targetName = args[0];
+					}
+				}
 
-        Location explosionLocation = target.getLocation();
-        explosionLocation.setY(target.getLocation().getY() + 1); // head explosion!
-        target.getWorld().createExplosion(
-                explosionLocation, 0, false);
-        target.damage(0.0D, target);
-        target.setVelocity(new Vector(3,3,4));
-        target.setFallDistance(0);
-        return true;
+				Bukkit.getServer().broadcastMessage(
+						String.format("%s%s slaps %s%s%s around a bit with a large %sTNT%s!",
+								player.getName(), ChatColor.GOLD, ChatColor.RESET, targetName, ChatColor.GOLD, ChatColor.RED, ChatColor.RESET));
+
+				Location explosionLocation = target.getLocation();
+				explosionLocation.setY(target.getLocation().getY() + 1); // head explosion!
+				target.getWorld().createExplosion(
+						explosionLocation, 0, false);
+				target.damage(0.0D, target);
+				target.setVelocity(new Vector(3, 3, 4));
+				target.setFallDistance(0);
+				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action.");
 			}

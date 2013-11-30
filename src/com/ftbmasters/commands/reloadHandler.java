@@ -1,12 +1,11 @@
 package com.ftbmasters.commands;
 
+import com.ftbmasters.Reloader;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.ftbmasters.Reloader;
 
 public class reloadHandler implements CommandExecutor {
 
@@ -17,7 +16,7 @@ public class reloadHandler implements CommandExecutor {
 			return true;
 		}
 		if (sender.hasPermission("masters.plugin.op")) {
-		Reloader.reloadMasters((Player) sender);
+			Reloader.reloadMasters((Player) sender);
 		} else {
 			sender.sendMessage(ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action.");
 		}
