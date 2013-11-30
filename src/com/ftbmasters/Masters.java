@@ -17,7 +17,7 @@ import com.ftbmasters.misc.Reloader;
 public class Masters extends JavaPlugin {
 	
 	protected Plugin plugin;
-    protected CommandManager commandManager = new CommandManager(this);
+    protected CommandManager commandManager = new CommandManager(this, "masters");
 
 	public void onEnable() {
 		this.plugin = this;
@@ -37,7 +37,6 @@ public class Masters extends JavaPlugin {
 		Reloader.enablePlugin(Bukkit.getServer().getConsoleSender(), Bukkit.getPluginManager().getPlugin("Masters"));
 	}
 
-    @Override
     @SuppressWarnings("unused")
     public boolean onCommand(Player player, Command command, String label, String[] args) {
         return commandManager.dispatch(player, command, label, args);

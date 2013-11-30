@@ -4,14 +4,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @SuppressWarnings("unused")
 public class slapCommand implements ICommandable {
 
-    public boolean run(Player player, Command command, String label, String[] args) {
-        if (! Player.hasPermission("masters.plugin.slap")) return false;
-
+    public boolean run(CommandSender sender, Command command, String label, String[] args) {
+        Player player = (Player) sender;
         Player target;
         String targetName = "Greg";
 
@@ -36,5 +36,10 @@ public class slapCommand implements ICommandable {
                 explosionLocation, 0, false);
         target.damage(0.0D, target);
         return true;
+    }
+
+    @Override
+    public String getPermission() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

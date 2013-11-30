@@ -12,7 +12,8 @@ public class mastersCommand implements ICommandable {
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    pubclic boolean permit() {
+    @Override
+    public String getPermission() {
         return this.permission;
     }
 }

@@ -2,6 +2,7 @@ package com.ftbmasters;
 
 import com.ftbmasters.commands.ICommandable;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -13,10 +14,12 @@ import java.util.Hashtable;
 import java.util.Map;
 
 class CommandManager {
+    private String basePermission;
     private Plugin plugin;
     private Map<String, Class<? extends ICommandable>> commands = new Hashtable<String, Class<? extends ICommandable>>();
-    public CommandManager(Plugin plugin) {
+    public CommandManager(Plugin plugin, String basePermission) {
         this.plugin = plugin;
+        this.basePermission = basePermission;
     }
     public void loadFromDescription(PluginDescriptionFile desc, ClassLoader loader) {
         Object object = desc.getCommands();
@@ -52,6 +55,11 @@ class CommandManager {
         try {
             Constructor<? extends ICommandable> ctor = klass.getConstructor(Plugin.class);
             ICommandable c = ctor.newInstance(plugin);
+            if (! sender.hasPermission(this.basePermission + c.getPermission())) {
+                sender.sendMessage(
+                    ChatColor.RED + "You don't have permission to run this command." + ChatColor.RESET);
+                return true;
+            }
             handled = c.run(sender, command, label, args);
         } catch (NoSuchMethodException e) {
             System.out.println("No constructor that accepts a Plugin.");
