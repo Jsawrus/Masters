@@ -11,29 +11,29 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.Plugin;
 
 public class chatHandler implements Listener {
-	
+
 	public chatHandler(Plugin pl) {
 		Bukkit.getServer().getPluginManager().registerEvents(this, pl);
 	}
-	
+
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void chat(final AsyncPlayerChatEvent evt) {
 		// lets add in some colour
-		
+
 		String message = evt.getMessage();
 		String name = evt.getPlayer().getDisplayName();
-		
+
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			pl.sendMessage("<" + name + ChatColor.WHITE + "> " + ChatColor.GRAY + message);
 		}
-		
+
 		evt.setCancelled(true);
 	}
-	
+
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void preProcess(final PlayerCommandPreprocessEvent evt) {
 		String msg = evt.getMessage();
-		
+
 		if (msg.equalsIgnoreCase("/plugins") || msg.equalsIgnoreCase("/pl")) {
 			if (evt.getPlayer().hasPermission("masters.plugin.op")) {
 				return;
