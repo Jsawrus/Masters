@@ -2,6 +2,7 @@ package com.ftbmasters.listeners;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,7 +35,7 @@ public class playerHandler implements Listener {
 	}
 	
 	// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
-	protected String[] colours = {"&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&10", "&11", "&12"};
+	protected String[] colours = {"§1", "§2", "§3", "§4", "§5", "§6", "§7", "§8", "§9", "§a", "§b", "§c"};
 	
 	private HashMap<String, String> address = new HashMap<String, String>();
 	private HashMap<String, Long> slept = new HashMap<String, Long>();
@@ -70,10 +71,10 @@ public class playerHandler implements Listener {
 		
 		// name colouring.
 		
-		int random = new Random().nextInt(100);
-		
-		evt.getPlayer().setDisplayName(new Colorizer(colours[random / 10]) + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(new Colorizer(colours[random / 10]) + evt.getPlayer().getName());
+		int random = new Random().nextInt(100) / 10;
+        String playerColor = colours[random];
+		evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
 		
 		new PlayerList(evt.getPlayer());
 		evt.getPlayer().sendMessage(fileHandler.contents);

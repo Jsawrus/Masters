@@ -9,7 +9,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Collection;
 
 public class teleportHandler implements Listener {
     Plugin plugin;
@@ -25,7 +29,8 @@ public class teleportHandler implements Listener {
             Location from = ev.getFrom();
             Location to = ev.getTo();
 
-            if (from.distance(to) < 1) {
+            // teleported to the same block? (almost)
+            if (from.distance(to) < 0.8) {
                 ev.setCancelled(true);
                 this.teleportToBed(ev.getPlayer());
             }
@@ -35,12 +40,17 @@ public class teleportHandler implements Listener {
     private void teleportToBed(final Player player) {
         Location targetLocation = player.getBedSpawnLocation();
         String message;
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*20, 1, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 36*20, 1, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 6*20, 4, true));
+
         if (targetLocation == null) {
             targetLocation = Bukkit.getWorld("world").getSpawnLocation();
 
-            message = ChatColor.LIGHT_PURPLE + "You find yourself at your bed." + ChatColor.WHITE + " Was it a dream? ...";
+            message = ChatColor.LIGHT_PURPLE + "You find yourself in the world where all began." + ChatColor.WHITE + " Was it a dream? ...";
         } else {
-            message = ChatColor.LIGHT_PURPLE + "You find yourself to the world spawn." + ChatColor.WHITE + " Was it a dream? ...";
+            message = ChatColor.LIGHT_PURPLE + "You find yourself to your bed." + ChatColor.WHITE + " Was it a dream? ...";
         }
 
         final Location finalTargetLocation = targetLocation;
@@ -54,7 +64,9 @@ public class teleportHandler implements Listener {
                         finalTargetLocation,
                         PlayerTeleportEvent.TeleportCause.PLUGIN);
                 player.sendMessage(finalMessage);
+
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4*20, 4, true));
             }
-        }.runTaskLater(this.plugin, 10);
+        }.runTaskLater(this.plugin, 60); // teleport after 6 seconds
     }
 }

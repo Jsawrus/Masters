@@ -25,7 +25,8 @@ public class Masters extends JavaPlugin {
 		commandHandlers();
 		
 		// dirty hacky gross
-		Bukkit.getServer().getConsoleSender().setOp(true);
+        // and undoable :)
+		// Bukkit.getServer().getConsoleSender().setOp(true);
 	}
 	
 	public void onDisable() {

@@ -1,10 +1,10 @@
 package com.ftbmasters.IO;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
+import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 public class fileHandler {
@@ -23,15 +23,20 @@ public class fileHandler {
 	
 	public void createFile() {
 		if (!fileExists()) {
+            BufferedWriter stream;
 			try {
 				file.getParentFile().mkdirs();
 				file.createNewFile();
-			} catch (IOException e) {
+                stream = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(file)));
+                stream.write("1.0>in the beginning was the ale.");
+                stream.close();
+            } catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	public void readFile() {
 		if (fileExists()) {
 			Scanner scanner = null;
@@ -40,9 +45,13 @@ public class fileHandler {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-			
-			String[] tempContents = scanner.nextLine().split(">");
-			contents = ChatColor.WHITE + "<" + ChatColor.GOLD + tempContents[0] + ChatColor.WHITE + ">" + ChatColor.YELLOW + tempContents[1];
+
+            try {
+			    String[] tempContents = scanner.nextLine().split(">");
+			    contents = ChatColor.WHITE + "<" + ChatColor.GOLD + tempContents[0] + ChatColor.WHITE + ">" + ChatColor.YELLOW + tempContents[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Bukkit.getLogger().log(Level.SEVERE, "motd.cfg format invalid!");
+            }
 			
 		} else {
 			contents = null;

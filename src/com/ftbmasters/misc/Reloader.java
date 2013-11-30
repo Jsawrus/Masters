@@ -6,6 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.fusesource.jansi.AnsiConsole;
+
+import java.util.logging.Level;
 
 public class Reloader {
 	
@@ -56,11 +59,16 @@ public class Reloader {
             error = true;
         }
         if (!error) {
-            serverPM.enablePlugin(targetPlugin);
-            if (targetPlugin.isEnabled()) {
-            	 sender.sendMessage(ChatColor.GREEN + pluginName + " has been enabled.");
-            } else {
-            	sender.sendMessage(ChatColor.RED + "An unknown error occurred while enabling " + pluginName + ".");
+            try {
+                serverPM.enablePlugin(targetPlugin);
+                if (targetPlugin.isEnabled()) {
+                	 sender.sendMessage(ChatColor.GREEN + pluginName + " has been enabled.");
+                } else {
+            	    sender.sendMessage(ChatColor.RED + "An unknown error occurred while enabling " + pluginName + ".");
+                }
+            } catch (NullPointerException e) {
+                Bukkit.getLogger().log(Level.SEVERE, "NPE! in Reloader!!!11");
+                e.printStackTrace();
             }
         }
     }
