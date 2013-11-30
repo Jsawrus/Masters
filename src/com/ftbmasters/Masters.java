@@ -4,6 +4,7 @@ import com.ftbmasters.IO.fileHandler;
 import com.ftbmasters.commands.commandHandler;
 import com.ftbmasters.commands.inviteCommand;
 import com.ftbmasters.commands.slapCommand;
+import com.ftbmasters.commands.teleportCommand;
 import com.ftbmasters.commands.tellHandler;
 import com.ftbmasters.listeners.blockHandler;
 import com.ftbmasters.listeners.chatHandler;

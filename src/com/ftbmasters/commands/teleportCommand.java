@@ -1,4 +1,4 @@
-package com.ftbmasters;
+package com.ftbmasters.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
