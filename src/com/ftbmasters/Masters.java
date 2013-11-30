@@ -34,7 +34,6 @@ public class Masters extends JavaPlugin {
 	}
 
 
-    @SuppressWarnings("unused")
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         return commandManager.dispatch(sender, command, label, args);
     }

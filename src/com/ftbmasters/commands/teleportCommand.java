@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
 public class teleportCommand implements ICommandable {
+	@SuppressWarnings("unused")
 	private Plugin plugin;
 
 	public teleportCommand(Plugin plugin) {
