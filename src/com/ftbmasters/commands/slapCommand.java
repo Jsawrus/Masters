@@ -45,8 +45,8 @@ public class slapCommand implements CommandExecutor {
 				target.getWorld().createExplosion(
 						explosionLocation, 0, false);
 				target.damage(0.0D, target);
-				target.setVelocity(new Vector(3, 3, 4));
-				target.setFallDistance(0);
+				target.setVelocity(new Vector(1, 1, 1));
+				target.setNoDamageTicks(40);
 				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action.");
