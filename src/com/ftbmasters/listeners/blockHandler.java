@@ -16,7 +16,7 @@ public class blockHandler implements Listener {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler (priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void mossify(final PlayerInteractEvent evt) {
 		if (evt.getPlayer() != null) {
 			if (evt.getClickedBlock().getType().equals(Material.COBBLESTONE)) {
@@ -27,5 +27,5 @@ public class blockHandler implements Listener {
 			}
 		}
 	}
-	
+
 }
