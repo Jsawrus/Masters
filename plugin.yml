@@ -2,10 +2,8 @@ name: Masters
 author: iPhysX
 version: 1.0
 main: com.ftbmasters.Masters
+softdepend: [Reloader]
 commands:
-  masters:
-    usage: /masters
-    description: Masters related commands (OP)
   masters:
     class: com.ftbmasters.commands.CommandMaster
     description: Masters related commands (OP)
@@ -19,3 +17,7 @@ commands:
     usage: /<command>
     aliases: [w, t, msg]
     description: Tell related commands
+  reload:
+    usage: /reload || /rl
+    description: Reloads the Masters Plugin
+    alias: [rl]

@@ -15,7 +15,7 @@ import com.ftbmasters.listeners.worldHandler;
 import com.ftbmasters.misc.Reloader;
 
 public class Masters extends JavaPlugin {
-	
+
 	protected Plugin plugin;
     protected CommandManager commandManager = new CommandManager(this, "masters");
 
@@ -26,10 +26,6 @@ public class Masters extends JavaPlugin {
 
 		fileHandlers();
 		eventHandlers();
-
-		// dirty hacky gross
-        // and undoable :)
-		// Bukkit.getServer().getConsoleSender().setOp(true);
 	}
 
     @Override
