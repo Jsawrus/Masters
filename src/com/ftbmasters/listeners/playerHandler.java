@@ -1,18 +1,28 @@
 package com.ftbmasters.listeners;
 
-import com.ftbmasters.IO.fileHandler;
-import com.ftbmasters.misc.PlayerList;
-import org.bukkit.*;
+import java.util.HashMap;
+import java.util.Random;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.EntityEffect;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.*;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
-import java.util.Random;
+import com.ftbmasters.IO.fileHandler;
+import com.ftbmasters.misc.PlayerList;
 
 public class playerHandler implements Listener {
 
@@ -35,6 +45,20 @@ public class playerHandler implements Listener {
 		String name = evt.getPlayer().getName();
 
 		address.put(name, ip);
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void death(final PlayerDeathEvent evt) {
+
+		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			if (pl.getName() == evt.getEntity().getName())
+				break;
+
+			pl.sendMessage(evt.getEntity().getDisplayName() + ChatColor.RED + evt.getDeathMessage().substring(evt.getEntity().getName().length()));
+
+		}
+
+		evt.setDeathMessage(null);
 	}
 
 	@EventHandler (priority = EventPriority.NORMAL)
