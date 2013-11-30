@@ -2,6 +2,7 @@ name: Masters
 author: iPhysX
 version: 1.0
 main: com.ftbmasters.Masters
+softdepend: [Reloader]
 commands:
   masters:
     usage: /masters
@@ -15,3 +16,4 @@ commands:
   reload:
     usage: /reload || /rl
     description: Reloads the Masters Plugin
+    alias: [rl]
