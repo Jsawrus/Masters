@@ -28,7 +28,7 @@ public class worldHandler implements Listener {
 	public void unload(final WorldUnloadEvent evt) {
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.hasPermission("masters.plugin.op")) {
-				pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been unloaded.");
+				//pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been unloaded.");
 			}
 		}
 	}
@@ -43,7 +43,7 @@ public class worldHandler implements Listener {
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.hasPermission("masters.plugin.op")) {
-				pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been loaded by " + players + ".");
+				//pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been loaded by " + players + ".");
 			}
 		}
 
