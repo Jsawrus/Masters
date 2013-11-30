@@ -5,6 +5,7 @@ import com.ftbmasters.commands.commandHandler;
 import com.ftbmasters.commands.slapCommand;
 import com.ftbmasters.commands.tellHandler;
 import com.ftbmasters.listeners.blockHandler;
+import com.ftbmasters.listeners.chatHandler;
 import com.ftbmasters.listeners.playerHandler;
 import com.ftbmasters.listeners.serverHandler;
 import com.ftbmasters.listeners.teleportHandler;
@@ -33,6 +34,7 @@ public class Masters extends JavaPlugin {
 		new worldHandler(this.plugin);
 		new teleportHandler(this.plugin);
 		new TagWorker(this.plugin);
+		new chatHandler(this.plugin);
 	}
 
 	private void commandHandlers() {
