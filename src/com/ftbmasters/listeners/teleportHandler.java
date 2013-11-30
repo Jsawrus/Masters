@@ -3,6 +3,7 @@ package com.ftbmasters.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -44,6 +45,7 @@ public class teleportHandler implements Listener {
         player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*20, 1, true));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 36*20, 1, true));
         player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 6*20, 4, true));
+        player.playSound(player.getLocation(), Sound.ENDERMAN_SCREAM, 4, 1);
 
         if (targetLocation == null) {
             targetLocation = Bukkit.getWorld("world").getSpawnLocation();
@@ -63,6 +65,8 @@ public class teleportHandler implements Listener {
                 player.teleport(
                         finalTargetLocation,
                         PlayerTeleportEvent.TeleportCause.PLUGIN);
+
+                player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 6, 1);
                 player.sendMessage(finalMessage);
 
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4*20, 4, true));
