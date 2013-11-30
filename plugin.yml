@@ -6,3 +6,6 @@ commands:
   masters:
     usage: /masters
     description: Masters related commands (OP)
+  tell:
+    usage: /tell
+    description: Tell related commands

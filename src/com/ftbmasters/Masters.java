@@ -42,6 +42,7 @@ public class Masters extends JavaPlugin {
 	
 	private void commandHandlers() {
 		getCommand("masters").setExecutor(new commandHandler());
+		getCommand("tell").setExecutor(new commandHandler());
 	}
 	
 	public static void fileHandlers() {
