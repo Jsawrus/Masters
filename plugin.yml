@@ -12,3 +12,6 @@ commands:
   slap:
     usage: /slap <player>
     description: Slaps a player
+  reload:
+    usage: /reload || /rl
+    description: Reloads the Masters Plugin
