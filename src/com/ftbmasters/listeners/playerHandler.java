@@ -65,6 +65,10 @@ public class playerHandler implements Listener {
 	public void join(final PlayerJoinEvent evt) {
 		String name = evt.getPlayer().getName();
 		evt.setJoinMessage(null);
+		int random = new Random().nextInt(100) / 10;
+		String playerColor = colours[random];
+		evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.getName() == evt.getPlayer().getName()) break;
@@ -84,10 +88,7 @@ public class playerHandler implements Listener {
 
 		// name colouring.
 
-		int random = new Random().nextInt(100) / 10;
-		String playerColor = colours[random];
-		evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
+	
 
 		new PlayerList(evt.getPlayer());
 		evt.getPlayer().sendMessage(fileHandler.contents);
