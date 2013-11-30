@@ -43,12 +43,13 @@ public class slapCommand implements ICommandable {
                         player.getName(), ChatColor.GOLD, ChatColor.RESET, targetName, ChatColor.GOLD, ChatColor.RED, ChatColor.RESET));
 
         Location explosionLocation = target.getLocation();
-        explosionLocation.setY(target.getLocation().getY() + 1); // head explosion!
+        explosionLocation.setY(target.getLocation().getY() + 1);
         target.getWorld().createExplosion(
                 explosionLocation, 0, false);
         target.damage(0.0D, target);
-		target.setVelocity(new Vector(1, 1, 2));
+		target.setVelocity(new Vector(1, 1, 1));
 		target.setFallDistance(0);
+		target.setNoDamageTicks(40);
         return true;
     }
 

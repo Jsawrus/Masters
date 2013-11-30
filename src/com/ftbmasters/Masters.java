@@ -1,9 +1,5 @@
 package com.ftbmasters;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,9 +9,9 @@ import com.ftbmasters.listeners.blockHandler;
 import com.ftbmasters.listeners.playerHandler;
 import com.ftbmasters.listeners.serverHandler;
 import com.ftbmasters.listeners.worldHandler;
-import com.ftbmasters.Reloader;
-
-import java.util.logging.Level;
+import com.ftbmasters.misc.TagWorker;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class Masters extends JavaPlugin {
 
@@ -36,14 +32,6 @@ public class Masters extends JavaPlugin {
 		eventHandlers();
 	}
 
-    @Override
-	public void onDisable() {
-	    try {
-			Reloader.enablePlugin(Bukkit.getServer().getConsoleSender(), Bukkit.getPluginManager().getPlugin("Masters"));
-	    } catch (NoClassDefFoundError e) {
-		    this.plugin.getLogger().log(Level.WARNING, "Reloader Class not found! maybe you issued /stop?");
-	    }
-	}
 
     @SuppressWarnings("unused")
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -55,8 +43,11 @@ public class Masters extends JavaPlugin {
 		new playerHandler(this.plugin);
 		new serverHandler(this.plugin);
 		new worldHandler(this.plugin);
-        new teleportHandler(this.plugin);
+		new teleportHandler(this.plugin);
+		new TagWorker(this.plugin);
+		new chatHandler(this.plugin);
 	}
+
 
 	public static void fileHandlers() {
 		new fileHandler();
