@@ -16,3 +16,6 @@ commands:
     usage: /reload || /rl
     description: Reloads the Masters Plugin
     alias: [rl]
+  invite:
+    usage: /invite <player>
+    description: Invite a player to your location
