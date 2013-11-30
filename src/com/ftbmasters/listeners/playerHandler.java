@@ -73,8 +73,6 @@ public class playerHandler implements Listener {
 		
 		int random = new Random().nextInt(100) / 10;
         String playerColor = colours[random];
-
-        Bukkit.getLogger().log(Level.SEVERE, "playerColor: " + playerColor);
 		evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
 		evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
 		
