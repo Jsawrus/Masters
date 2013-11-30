@@ -18,11 +18,7 @@ public class fileHandler {
 	}
 	
 	public boolean fileExists() {
-		if (this.file.exists()) {
-			return true;
-		} else {
-			return false;
-		}
+        return this.file.exists();
 	}
 	
 	public void createFile() {

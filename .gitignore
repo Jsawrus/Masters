@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+
+# Aliem's crap
+Masters.iml.classpath
+.idea
+Masters.iml
