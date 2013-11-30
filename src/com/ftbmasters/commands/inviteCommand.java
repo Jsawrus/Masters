@@ -29,8 +29,8 @@ public class inviteCommand implements CommandExecutor {
 						double y = Math.round(player.getLocation().getBlockY() + 0.5D);
 						double z = Math.round(player.getLocation().getBlockZ() + 0.5D);
 
-						Bukkit.getPlayer(player2).sendMessage(ChatColor.GREEN + sender.getName() + " invites you to " + ChatColor.RED + "(" + ChatColor.WHITE + x + ChatColor.GREEN + ", " + y + ChatColor.GREEN + ", " + z + ChatColor.RED + ")");
-						sender.sendMessage(ChatColor.GREEN + "You have invited " + player2 + " to your location");
+						Bukkit.getPlayer(player2).sendMessage(ChatColor.GREEN + ((Player) sender).getDisplayName() + ChatColor.GREEN + " invites you to " + ChatColor.RED + "(" + ChatColor.GOLD + x + ", " + y + ", " + z + ChatColor.RED + ")");
+						sender.sendMessage(ChatColor.GREEN + "You have invited " + Bukkit.getPlayer(player2).getDisplayName() + ChatColor.GREEN + " to your location");
 					} else {
 						sender.sendMessage(ChatColor.RED + "The player " + player2 + " doesn't exist.");
 					}

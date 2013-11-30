@@ -2,6 +2,7 @@ package com.ftbmasters;
 
 import com.ftbmasters.IO.fileHandler;
 import com.ftbmasters.commands.commandHandler;
+import com.ftbmasters.commands.inviteCommand;
 import com.ftbmasters.commands.slapCommand;
 import com.ftbmasters.commands.tellHandler;
 import com.ftbmasters.listeners.blockHandler;
@@ -41,7 +42,7 @@ public class Masters extends JavaPlugin {
 		getCommand("masters").setExecutor(new commandHandler());
 		getCommand("tell").setExecutor(new tellHandler());
 		getCommand("slap").setExecutor(new slapCommand());
-
+		getCommand("invite").setExecutor(new inviteCommand());
 	}
 
 	public static void fileHandlers() {
