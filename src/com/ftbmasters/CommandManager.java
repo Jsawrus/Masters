@@ -1,7 +1,6 @@
 package com.ftbmasters;
 
 import com.ftbmasters.commands.ICommandable;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

@@ -7,11 +7,6 @@ commands:
     class: com.ftbmasters.commands.mastersCommand
     description: Masters related commands (OP)
     usage: /masters
-  reload:
-    class: com.ftbmasters.commands.reloadCommand
-    description: Reload the Masters plugin
-    usage: /reload
-    aliases: [rl]
   slap:
     class: com.ftbmasters.commands.slapCommand
     usage: /slap <player>
@@ -25,3 +20,7 @@ commands:
     class: com.ftbmasters.commands.inviteCommand
     usage: /invite <player>
     description: Invites a player
+  tp:
+    class: com.ftbmasters.commands.teleportCommand
+    usage: /tp <player> <player> || /tp <player>
+    description: Teleports a player
