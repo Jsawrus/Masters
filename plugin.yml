@@ -5,19 +5,20 @@ main: com.ftbmasters.Masters
 softdepend: [Reloader]
 commands:
   masters:
-    class: com.ftbmasters.commands.CommandMaster
+    class: com.ftbmasters.commands.mastersCommand
     description: Masters related commands (OP)
-    usage: /<command>
+    usage: /masters
+  reload:
+    class: com.ftbmasters.commands.reloadCommand
+    description: Reload the Masters plugin
+    usage: /reload
+    aliases: [rl]
   slap:
-    class: com.ftbmasters.commands.CommandSlap
-    usage: /<command> <player>
+    class: com.ftbmasters.commands.slapCommand
+    usage: /slap <player>
     description: Slaps a player
   tell:
-    class: com.ftbmasters.commands.CommandTell
-    usage: /<command>
+    class: com.ftbmasters.commands.tellCommand
+    usage: /tell
     aliases: [w, t, msg]
     description: Tell related commands
-  reload:
-    usage: /reload || /rl
-    description: Reloads the Masters Plugin
-    alias: [rl]
