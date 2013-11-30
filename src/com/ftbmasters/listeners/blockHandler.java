@@ -20,7 +20,7 @@ public class blockHandler implements Listener {
 	public void mossify(final PlayerInteractEvent evt) {
 		if (evt.getPlayer() != null) {
 			if (evt.getClickedBlock().getType().equals(Material.COBBLESTONE)) {
-				if (evt.getPlayer().getItemInHand().getTypeId() == 1944) {
+				if (evt.getPlayer().getItemInHand().getTypeId() == 1944 || evt.getPlayer().getItemInHand().getTypeId() == 8070) {
 					evt.getClickedBlock().setType(Material.MOSSY_COBBLESTONE);
 					evt.getPlayer().getInventory().remove(new ItemStack(1944, 1));
 				}
