@@ -9,13 +9,10 @@ import org.bukkit.ChatColor;
 
 public class fileHandler {
 	
-	private File file;
-
+	File file = new File("plugins" + File.separator + "Masters" + File.separator + "motd.cfg");
 	public static String contents = null;
 	
-	public fileHandler(File file) {
-		this.file = file;
-		
+	public fileHandler() {
 		createFile();
 		readFile();
 	}
@@ -27,6 +24,7 @@ public class fileHandler {
 	public void createFile() {
 		if (!fileExists()) {
 			try {
+				file.getParentFile().mkdirs();
 				file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();

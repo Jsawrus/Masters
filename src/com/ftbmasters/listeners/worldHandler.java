@@ -54,11 +54,11 @@ public class worldHandler implements Listener {
 	
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void load(final WorldSaveEvent evt) {
-		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+		/*for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been saved.");
 			}
-		}
+		}*/
 	}
 
 }
