@@ -1,5 +1,6 @@
 package com.ftbmasters;
 
+import com.ftbmasters.commands.slapCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -44,6 +45,7 @@ public class Masters extends JavaPlugin {
 	private void commandHandlers() {
 		getCommand("masters").setExecutor(new commandHandler());
 		getCommand("tell").setExecutor(new commandHandler());
+        getCommand("slap").setExecutor(new slapCommand());
 	}
 	
 	public static void fileHandlers() {

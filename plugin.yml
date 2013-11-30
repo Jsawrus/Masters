@@ -9,3 +9,6 @@ commands:
   tell:
     usage: /tell
     description: Tell related commands
+  slap:
+    usage: /slap <player>
+    description: Slaps a player
