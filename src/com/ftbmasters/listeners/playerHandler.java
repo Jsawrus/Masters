@@ -2,8 +2,6 @@ package com.ftbmasters.listeners;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.logging.Level;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.EntityEffect;
@@ -22,7 +20,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.ftbmasters.IO.fileHandler;
-import com.ftbmasters.misc.Colorizer;
 import com.ftbmasters.misc.PlayerList;
 
 public class playerHandler implements Listener {
