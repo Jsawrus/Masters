@@ -13,10 +13,10 @@ public class tellHandler implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("tell")) {
-			if (args.length <= 2) {
+			if (args.length >= 2) {
 				String p2Name = args[0];
 
-				if (Bukkit.getServer().getPlayerExact(p2Name) == null) {
+				if (Bukkit.getServer().getPlayer(p2Name) == null) {
 					sender.sendMessage(ChatColor.RED + "Your message could not be delivered!");
 					return true;
 				} else {
@@ -27,9 +27,7 @@ public class tellHandler implements CommandExecutor {
 						str.append(args[i] + " ");
 					}
 
-					String message = str.substring(0, str.length() - 1) + ".";
-
-					new PrivateMessage((Player) sender, Bukkit.getServer().getPlayerExact(p2Name), message);
+					new PrivateMessage((Player) sender, Bukkit.getServer().getPlayer(p2Name), str.toString());
 					return true;
 				}
 			}
