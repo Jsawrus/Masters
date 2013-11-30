@@ -1,5 +1,6 @@
 package com.ftbmasters;
 
+import com.ftbmasters.commands.reloadHandler;
 import com.ftbmasters.commands.slapCommand;
 import com.ftbmasters.commands.tellHandler;
 
