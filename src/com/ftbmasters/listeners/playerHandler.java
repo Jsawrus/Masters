@@ -5,7 +5,9 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.EntityEffect;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,6 +18,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.ftbmasters.IO.fileHandler;
 import com.ftbmasters.misc.Colorizer;
@@ -23,8 +26,11 @@ import com.ftbmasters.misc.PlayerList;
 
 public class playerHandler implements Listener {
 	
+	private Plugin plugin;
+	
 	public playerHandler(Plugin pl) {
 		Bukkit.getPluginManager().registerEvents(this, pl);
+		this.plugin = pl;
 	}
 	
 	// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
@@ -71,6 +77,18 @@ public class playerHandler implements Listener {
 		
 		new PlayerList(evt.getPlayer());
 		evt.getPlayer().sendMessage(fileHandler.contents);
+		
+		 new BukkitRunnable()
+	        {
+	            @Override
+	            public void run()
+	            {
+	            	evt.getPlayer().playSound(evt.getPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 2500, 2500);
+	                for (int i = 0; i < 3; i++) {
+	                	evt.getPlayer().playEffect(EntityEffect.WOLF_HEARTS);
+	                }
+	            }
+	        }.runTaskLater(plugin, 2);
 	}
 	
 	
