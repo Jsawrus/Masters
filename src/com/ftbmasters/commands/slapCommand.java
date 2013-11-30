@@ -4,18 +4,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class slapCommand implements CommandExecutor {
+@SuppressWarnings("unused")
+public class slapCommand implements ICommandable {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (! cmd.getName().equalsIgnoreCase("slap")) return false;
-        if (! sender.hasPermission("masters.plugin.slap")) return false;
+    public boolean run(Player player, Command command, String label, String[] args) {
+        if (! Player.hasPermission("masters.plugin.slap")) return false;
 
-        Player player = (Player) sender;
         Player target;
         String targetName = "Greg";
 
