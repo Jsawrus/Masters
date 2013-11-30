@@ -5,15 +5,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ftbmasters.IO.fileHandler;
 import com.ftbmasters.commands.commandHandler;
+import com.ftbmasters.commands.inviteCommand;
 import com.ftbmasters.commands.reloadHandler;
 import com.ftbmasters.commands.slapCommand;
 import com.ftbmasters.commands.tellHandler;
-import com.ftbmasters.listeners.TagWorker;
 import com.ftbmasters.listeners.blockHandler;
 import com.ftbmasters.listeners.playerHandler;
 import com.ftbmasters.listeners.serverHandler;
 import com.ftbmasters.listeners.teleportHandler;
 import com.ftbmasters.listeners.worldHandler;
+import com.ftbmasters.misc.TagWorker;
 
 public class Masters extends JavaPlugin {
 

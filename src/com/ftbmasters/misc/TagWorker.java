@@ -1,4 +1,4 @@
-package com.ftbmasters.listeners;
+package com.ftbmasters.misc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
