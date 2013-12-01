@@ -24,3 +24,8 @@ commands:
     class: com.ftbmasters.commands.teleportCommand
     usage: /tp <player> <player> || /tp <player>
     description: Teleports a player
+  item:
+    class: com.ftbmasters.commands.itemCommand
+    usage: /item <itemId:data> [player]
+    aliases: [i, give]
+    description: Give items to a player
