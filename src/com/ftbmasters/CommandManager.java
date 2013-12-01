@@ -57,7 +57,7 @@ class CommandManager {
 		try {
 			Constructor<? extends ICommandable> ctor = klass.getConstructor(Plugin.class);
 			ICommandable c = ctor.newInstance(plugin);
-			if (!sender.hasPermission(this.basePermission + c.getPermission())) {
+			if (!sender.hasPermission(this.basePermission + "." + c.getPermission())) {
 				sender.sendMessage(
 						ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action." + ChatColor.RESET);
 				return true;
