@@ -27,5 +27,5 @@ commands:
   item:
     class: com.ftbmasters.commands.itemCommand
     usage: /item <itemId:data> [player]
-    aliases: [i, give]
+    aliases: [i]
     description: Give items to a player

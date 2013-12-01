@@ -7,12 +7,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class itemCommand implements ICommandable {
 	@SuppressWarnings ("unused")
 	private Plugin plugin;
+	private Logger logger;
 
 	public itemCommand(Plugin plugin) {
 		this.plugin = plugin;
+		this.logger = this.plugin.getLogger();
 	}
 
 	@Override
@@ -22,7 +27,6 @@ public class itemCommand implements ICommandable {
 		Player target = null;
 
 		// parse args
-
 		// item
 		if (args.length < 1) {
 			return false;
@@ -33,14 +37,14 @@ public class itemCommand implements ICommandable {
 		if (args.length >= 2) {
 			try {
 				stackSize = Integer.parseInt(args[1]);
-				if (args.length == 3) {
-					target = sender.getServer().getPlayer(args[1]);
-				}
 			} catch (NumberFormatException e) {
 				if (sender.getServer().getPlayer(args[1]) != null) {
 					target = sender.getServer().getPlayer(args[1]);
 				}
 			}
+		}
+		if (args.length > 2 && target == null) {
+			target = sender.getServer().getPlayer(args[2]);
 		}
 
 		if (!(sender instanceof Player) && target == null){
@@ -48,23 +52,26 @@ public class itemCommand implements ICommandable {
 			return false;
 		}
 
+		if (args.length == 2 ) {
+			target = sender.getServer().getPlayer(args[1]);
+		}
+
 		if (target == null) {
 			target = sender.getServer().getPlayer(sender.getName());
 		}
 
-
-		if (args.length == 2 ) {
-			target = sender.getServer().getPlayer(args[2]);
-		}
-
 		ItemStack myItem = getItem(item, stackSize);
-
+		if (myItem == null) {
+			sender.sendMessage("Can't create " + item);
+			return true;
+		}
+		log("[item]" + sender.getName() + " gave " + target.getName() + " " + stackSize + "x" + item);
 		target.getInventory().addItem(myItem);
 
 		// check if Forge items have a name!
 		target.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + ChatColor.RESET + ChatColor.AQUA +
 				" gave you " +
-				ChatColor.GOLD + stackSize + ChatColor.LIGHT_PURPLE +
+				ChatColor.GOLD + stackSize + ChatColor.LIGHT_PURPLE + " " +
 				(myItem.getType().name() != null ? myItem.getType().name() : args[0]) +
 				ChatColor.RESET);
 
@@ -78,7 +85,7 @@ public class itemCommand implements ICommandable {
 
 	@Override
 	public boolean needPlayer() {
-		return true; // Command needs a player
+		return false; // Command needs a player
 	}
 
 	@SuppressWarnings("deprecation")
@@ -108,6 +115,10 @@ public class itemCommand implements ICommandable {
 		}
 
 		return new ItemStack(id, stackSize, (short) dmg);
+	}
+
+	private void log (String str) {
+		this.logger.log(Level.INFO, str);
 	}
 
 }
