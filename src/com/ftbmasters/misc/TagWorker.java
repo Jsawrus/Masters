@@ -13,7 +13,7 @@ public class TagWorker implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, pl);
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onNameTag(final PlayerReceiveNameTagEvent event) {
 		event.setTag(event.getNamedPlayer().getDisplayName());
 	}

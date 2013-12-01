@@ -10,7 +10,6 @@ import com.ftbmasters.listeners.blockHandler;
 import com.ftbmasters.listeners.chatHandler;
 import com.ftbmasters.listeners.playerHandler;
 import com.ftbmasters.listeners.serverHandler;
-import com.ftbmasters.listeners.teleportHandler;
 import com.ftbmasters.listeners.worldHandler;
 import com.ftbmasters.misc.TagWorker;
 
@@ -43,7 +42,7 @@ public class Masters extends JavaPlugin {
 		new playerHandler(this.plugin);
 		new serverHandler(this.plugin);
 		new worldHandler(this.plugin);
-		new teleportHandler(this.plugin);
+		//new teleportHandler(this.plugin);
 		new TagWorker(this.plugin);
 		new chatHandler(this.plugin);
 	}

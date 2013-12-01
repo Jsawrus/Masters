@@ -22,7 +22,7 @@ public class blockHandler implements Listener {
 		if (evt.getPlayer() != null) {
 			if (evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				if (evt.getClickedBlock().getType().equals(Material.COBBLESTONE)) {
-					if (evt.getPlayer().getItemInHand().getTypeId() == 1944 || evt.getPlayer().getItemInHand().getTypeId() == 8070) {
+					if (evt.getPlayer().getItemInHand().getTypeId() == 1944) {
 						evt.getClickedBlock().setType(Material.MOSSY_COBBLESTONE);
 						evt.getPlayer().getInventory().remove(new ItemStack(1944, 1));
 					}

@@ -43,6 +43,11 @@ public class playerHandler implements Listener {
 	public void login(final PlayerLoginEvent evt) {
 		String ip = evt.getAddress().toString().substring(1, evt.getAddress().toString().length());
 		String name = evt.getPlayer().getName();
+		
+		int random = new Random().nextInt(100) / 10;
+		String playerColor = colours[random];
+		evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
 
 		address.put(name, ip);
 	}
@@ -65,10 +70,10 @@ public class playerHandler implements Listener {
 	public void join(final PlayerJoinEvent evt) {
 		String name = evt.getPlayer().getName();
 		evt.setJoinMessage(null);
-		int random = new Random().nextInt(100) / 10;
-		String playerColor = colours[random];
-		evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
+		//int random = new Random().nextInt(100) / 10;
+		//String playerColor = colours[random];
+		//evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
+		//evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.getName() == evt.getPlayer().getName()) break;
