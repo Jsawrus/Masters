@@ -50,6 +50,7 @@ class CommandManager {
 	}
 
 	public boolean dispatch(CommandSender sender, Command command, String label, String[] args) {
+		label = command.getName();
 		if (!commands.containsKey(label))
 			return false;
 		boolean handled = true;
