@@ -35,6 +35,8 @@ public class slapCommand implements ICommandable {
             if (target == null) {
                 target = player;
                 targetName = args[0];
+            } else {
+              targetName = target.getName();
             }
         }
 
