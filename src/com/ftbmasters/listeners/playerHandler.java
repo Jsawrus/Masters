@@ -34,10 +34,11 @@ public class playerHandler implements Listener {
 	}
 
 	// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
-	protected String[] colours = {"ง1", "ง2", "ง3", "ง4", "ง5", "ง6", "ง7", "ง8", "ง9", "งa", "งb", "งc"};
+	protected String colours = "123456789abc";
+	protected String color_code = String.valueOf('ยง');
 
-	private HashMap<String, String> address = new HashMap<String, String>();
-	private HashMap<String, Long> slept = new HashMap<String, Long>();
+	private HashMap<String, String> address = new HashMap<>();
+	private HashMap<String, Long> slept = new HashMap<>();
 
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void login(final PlayerLoginEvent evt) {
@@ -45,9 +46,9 @@ public class playerHandler implements Listener {
 		String name = evt.getPlayer().getName();
 		
 		int random = new Random().nextInt(100) / 10;
-		String playerColor = colours[random];
-		evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
+		char playerColor = colours.charAt(random);
+		evt.getPlayer().setDisplayName(color_code + playerColor + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(color_code + playerColor + evt.getPlayer().getName());
 
 		address.put(name, ip);
 	}
