@@ -1,8 +1,16 @@
 package com.ftbmasters;
 
-import com.ftbmasters.listeners.*;
+import com.ftbmasters.listeners.chatHandler;
+import com.ftbmasters.listeners.playerHandler;
+import com.ftbmasters.listeners.serverHandler;
+import com.ftbmasters.listeners.signHandler;
+import com.ftbmasters.listeners.snowballHandler;
+import com.ftbmasters.listeners.teleportHandler;
+import com.ftbmasters.listeners.worldHandler;
+import com.ftbmasters.recipes.ExpandingSnowBall;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,6 +33,7 @@ public class Masters extends JavaPlugin {
         this.commandManager.loadFromDescription(this.getDescription(), this.getClassLoader());
 
 		fileHandlers();
+
 		eventHandlers();
 	}
 
@@ -42,6 +51,7 @@ public class Masters extends JavaPlugin {
 		new TagWorker(this.plugin);
 		new chatHandler(this.plugin);
 		new signHandler(this.plugin);
+		new snowballHandler(this.plugin, (new ExpandingSnowBall()).snowBall);
 	}
 
 
