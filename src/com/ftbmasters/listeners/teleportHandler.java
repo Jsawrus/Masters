@@ -24,7 +24,8 @@ public class teleportHandler implements Listener {
 
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void teleport(final PlayerTeleportEvent ev) {
-		if (ev.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
+		if (ev.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL &&
+				ev.getPlayer().hasPermission("masters.enderport")) {
 			Location from = ev.getFrom();
 			Location to = ev.getTo();
 
