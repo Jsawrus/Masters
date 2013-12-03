@@ -1,16 +1,20 @@
 package com.ftbmasters;
 
+import com.ftbmasters.listeners.chatHandler;
+import com.ftbmasters.listeners.playerHandler;
+import com.ftbmasters.listeners.serverHandler;
+import com.ftbmasters.listeners.signHandler;
+import com.ftbmasters.listeners.snowballHandler;
+import com.ftbmasters.listeners.teleportHandler;
+import com.ftbmasters.listeners.worldHandler;
+import com.ftbmasters.recipes.ExpandingSnowBall;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ftbmasters.IO.fileHandler;
-import com.ftbmasters.listeners.blockHandler;
-import com.ftbmasters.listeners.chatHandler;
-import com.ftbmasters.listeners.playerHandler;
-import com.ftbmasters.listeners.serverHandler;
-import com.ftbmasters.listeners.worldHandler;
 import com.ftbmasters.misc.TagWorker;
 
 public class Masters extends JavaPlugin {
@@ -29,6 +33,7 @@ public class Masters extends JavaPlugin {
         this.commandManager.loadFromDescription(this.getDescription(), this.getClassLoader());
 
 		fileHandlers();
+
 		eventHandlers();
 	}
 
@@ -38,13 +43,15 @@ public class Masters extends JavaPlugin {
     }
 	
 	private void eventHandlers() {
-		new blockHandler(this.plugin);
+		// new blockHandler(this.plugin); // MCPC doesn't fire the event for mod items
 		new playerHandler(this.plugin);
 		new serverHandler(this.plugin);
 		new worldHandler(this.plugin);
-		//new teleportHandler(this.plugin);
+		new teleportHandler(this.plugin);
 		new TagWorker(this.plugin);
 		new chatHandler(this.plugin);
+		new signHandler(this.plugin);
+		new snowballHandler(this.plugin, (new ExpandingSnowBall()).snowBall);
 	}
 
 
