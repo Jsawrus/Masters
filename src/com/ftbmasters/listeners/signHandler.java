@@ -12,7 +12,7 @@ import java.util.logging.Level;
 public class signHandler implements Listener {
 	private Plugin plugin;
 
-	protected final String color_code = String.valueOf('ยง');
+	protected final String color_code = String.valueOf('ง');
 	protected final String color_sign = String.valueOf('&');
 
 	public signHandler(Plugin plugin) {
@@ -29,6 +29,7 @@ public class signHandler implements Listener {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void log(String s) {
 		this.plugin.getLogger().log(Level.INFO, "[signHandler] " + s);
 	}

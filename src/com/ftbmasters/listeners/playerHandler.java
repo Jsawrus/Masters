@@ -35,7 +35,7 @@ public class playerHandler implements Listener {
 
 	// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
 	protected String colours = "123456789abc";
-	protected String color_code = String.valueOf('ยง');
+	protected String color_code = String.valueOf('ง');
 
 	private HashMap<String, String> address = new HashMap<>();
 	private HashMap<String, Long> slept = new HashMap<>();
