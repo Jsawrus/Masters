@@ -98,6 +98,7 @@ public class snowballHandler implements Listener {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void log(String s) {
 		this.plugin.getLogger().log(Level.INFO, "[snowballHandler] " + s);
 	}

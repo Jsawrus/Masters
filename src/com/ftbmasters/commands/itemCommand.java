@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class itemCommand implements ICommandable {
-	@SuppressWarnings ("unused")
 	private Plugin plugin;
 	private Logger logger;
 
