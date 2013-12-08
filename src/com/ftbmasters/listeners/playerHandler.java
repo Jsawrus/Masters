@@ -35,7 +35,6 @@ public class playerHandler implements Listener {
 
 	// black, d_blue, d_green, d_aqua, d_red, d_purple, gold, gray, d_gray, indigo, green, aqua, red, pink, yellow
 	protected String colours = "123456789abc";
-	protected String color_code = String.valueOf('§');
 
 	private HashMap<String, String> address = new HashMap<>();
 	private HashMap<String, Long> slept = new HashMap<>();
@@ -47,8 +46,8 @@ public class playerHandler implements Listener {
 		
 		int random = new Random().nextInt(100) / 10;
 		char playerColor = colours.charAt(random);
-		evt.getPlayer().setDisplayName(color_code + playerColor + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(color_code + playerColor + evt.getPlayer().getName());
+		evt.getPlayer().setDisplayName(ChatColor.COLOR_CHAR + playerColor + evt.getPlayer().getName());
+		evt.getPlayer().setPlayerListName(ChatColor.COLOR_CHAR + playerColor + evt.getPlayer().getName());
 
 		address.put(name, ip);
 	}
