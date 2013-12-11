@@ -102,7 +102,7 @@ public class CommandManager {
 
 		Object[] methodArgs = {sender, args};
 
-		if (!command.player() && !(sender instanceof Player)) {
+		if (command.player() && !(sender instanceof Player)) {
 			sender.sendMessage("Only a player can use this command");
 			return true;
 		}
@@ -115,14 +115,17 @@ public class CommandManager {
 		try {
 			method.invoke(instance, methodArgs);
 			result = true;
-		} catch (InvocationTargetException | IllegalAccessException e) {
+		} catch (IllegalAccessException e) {
 			error("Exception invoking method.");
 			e.printStackTrace();
-		} catch (CommandArgumentException ex) {
-			sender.sendMessage(ex.getMessage());
-		} catch (CommandException ex) {
-			error("General CommandException: " + ex.getMessage());
-			sender.sendMessage("\u00A7cError resolving command quantum physics equations");
+		} catch (InvocationTargetException ex) {
+			if (ex.getCause() instanceof CommandArgumentException) {
+				sender.sendMessage("\u00A7c" + ex.getCause().getMessage());
+			}
+			if (ex.getCause() instanceof CommandException) {
+				error("General CommandException: " + ex.getCause().getMessage());
+				sender.sendMessage("\u00A7cError resolving command quantum physics equations");
+			}
 		}
 		return result;
 	}

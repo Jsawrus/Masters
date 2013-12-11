@@ -5,6 +5,9 @@ package com.ftbmasters.utils.commands;
  * wrong spelling error
  */
 public class CommandArgumentException extends RuntimeException {
+	public CommandArgumentException() {
+		super("Wrong Arguments!");
+	}
 	public CommandArgumentException(String s) {
 		super(s);
 	}

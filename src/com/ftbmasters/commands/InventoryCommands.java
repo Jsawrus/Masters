@@ -74,10 +74,15 @@ public class InventoryCommands {
 			aliases = {},
 			player = true,
 			permission = "masters.pickpocket",
-			description = "Pickpocket a Player's invetory"
+			description = "Pickpocket a Player's inventory or Ender Chest",
+			usage = "/<command> [-e] <player>"
 	)
 	public void openInventory(CommandSender sender, String[] args){
 		// TODO implement me! I'm quite useful
+		if (args.length < 1)
+			throw new CommandArgumentException();
+
+		boolean enderChest = args.length == 2 && args[0].equals("-e");
 	}
 
 	@SuppressWarnings("deprecation")
