@@ -26,13 +26,10 @@ public class Masters extends JavaPlugin {
 	protected Plugin plugin;
     protected CommandManager commandManager;
 
-	public Masters() {
-		super();
-		commandManager = new CommandManager(this);
-	}
-
 	public void onEnable() {
 		this.plugin = this;
+
+		commandManager = new CommandManager(this);
 
 		this.commandManager.register(SillyCommands.class);
 		this.commandManager.register(ChatCommands.class);

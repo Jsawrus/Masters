@@ -3,6 +3,7 @@ package com.ftbmasters.utils.commands;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_6_R3.CraftServer;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.InvocationTargetException;
@@ -16,8 +17,8 @@ public class CommandManager {
 	private final CraftServer server;
 	private final Logger logger;
 
-	private Map<Method, Object> commands = new HashMap<>();
-	private Map<String, Method> aliases = new HashMap<>();
+	private final Map<Method, Object> commands = new HashMap<>();
+	private final Map<String, Method> aliases = new HashMap<>();
 
 	/**
 	 * Constructor
@@ -74,6 +75,7 @@ public class CommandManager {
 			pluginCommand.setDescription(command.description());
 			pluginCommand.setPermission(command.permission());
 			registeredCommands.add(pluginCommand);
+			log("registering new command: " + pluginCommand.getName());
 		}
 
 		server.getCommandMap().registerAll(plugin.getName(), registeredCommands);
@@ -96,19 +98,30 @@ public class CommandManager {
 
 		Method method = this.aliases.get(cmd.getName());
 		Object instance = this.commands.get(method);
+		Command command = method.getAnnotation(Command.class);
 
 		Object[] methodArgs = {sender, args};
+
+		if (!command.player() && !(sender instanceof Player)) {
+			sender.sendMessage("Only a player can use this command");
+			return true;
+		}
+
+		if (!sender.hasPermission(command.permission())) {
+			sender.sendMessage("\u00A7cI'm sorry, you don't have permission to use this command.");
+			return true;
+		}
 
 		try {
 			method.invoke(instance, methodArgs);
 			result = true;
 		} catch (InvocationTargetException | IllegalAccessException e) {
-			log("Exception invoking method.");
+			error("Exception invoking method.");
 			e.printStackTrace();
 		} catch (CommandArgumentException ex) {
 			sender.sendMessage(ex.getMessage());
 		} catch (CommandException ex) {
-			log("General CommandException: " + ex.getMessage());
+			error("General CommandException: " + ex.getMessage());
 			sender.sendMessage("\u00A7cError resolving command quantum physics equations");
 		}
 		return result;
@@ -118,10 +131,10 @@ public class CommandManager {
 		return aliases.containsKey(s);
 	}
 
-	private void log(String s) {
-		log(Level.SEVERE, s);
+	private void error(String s) {
+		logger.log(Level.SEVERE, s);
 	}
-	private void log(Level level, String s) {
-		logger.log(level, s);
+	private void log(String s) {
+		logger.log(Level.INFO, s);
 	}
 }
