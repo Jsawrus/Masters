@@ -2,30 +2,3 @@ name: Masters
 author: iPhysX
 version: 1.0
 main: com.ftbmasters.Masters
-commands:
-  masters:
-    class: com.ftbmasters.commands.mastersCommand
-    description: Masters related commands (OP)
-    usage: /masters
-  slap:
-    class: com.ftbmasters.commands.slapCommand
-    usage: /slap <player>
-    description: Slaps a player
-  tell:
-    class: com.ftbmasters.commands.tellCommand
-    usage: /tell
-    aliases: [w, t, msg]
-    description: Tell related commands
-  invite:
-    class: com.ftbmasters.commands.inviteCommand
-    usage: /invite <player>
-    description: Invites a player
-  tp:
-    class: com.ftbmasters.commands.teleportCommand
-    usage: /tp <player> <player> || /tp <player>
-    description: Teleports a player
-  item:
-    class: com.ftbmasters.commands.itemCommand
-    usage: /item <itemId:data> [player]
-    aliases: [i]
-    description: Give items to a player
