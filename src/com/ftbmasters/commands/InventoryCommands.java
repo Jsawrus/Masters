@@ -1,26 +1,21 @@
 package com.ftbmasters.commands;
 
+import com.ftbmasters.utils.commands.Command;
+import com.ftbmasters.utils.commands.CommandArgumentException;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-public class itemCommand implements ICommandable {
-	private Plugin plugin;
-	private Logger logger;
-
-	public itemCommand(Plugin plugin) {
-		this.plugin = plugin;
-		this.logger = this.plugin.getLogger();
-	}
-
-	@Override
-	public boolean run(CommandSender sender, Command command, String label, String[] args) {
+public class InventoryCommands {
+	@Command (
+			name = "item",
+			aliases = {"i"},
+			permission = "masters.item",
+			usage = "/<command> <ItemID:ItemDamage> [Player]",
+			description = "Give items to someone"
+	)
+	public void giveItem(CommandSender sender, String[] args) {
 		String item;
 		int stackSize = 1;
 		Player target = null;
@@ -28,7 +23,7 @@ public class itemCommand implements ICommandable {
 		// parse args
 		// item
 		if (args.length < 1) {
-			return false;
+			throw new CommandArgumentException("");
 		} else {
 			item = args[0];
 		}
@@ -48,7 +43,7 @@ public class itemCommand implements ICommandable {
 
 		if (!(sender instanceof Player) && target == null){
 			sender.sendMessage("Get a proper inventory and we can talk!");
-			return false;
+			return;
 		}
 
 		if (args.length == 2 ) {
@@ -62,9 +57,8 @@ public class itemCommand implements ICommandable {
 		ItemStack myItem = getItem(item, stackSize);
 		if (myItem == null) {
 			sender.sendMessage("Can't create " + item);
-			return true;
+			return;
 		}
-		log("[item]" + sender.getName() + " gave " + target.getName() + " " + stackSize + "x" + item);
 		target.getInventory().addItem(myItem);
 
 		// check if Forge items have a name!
@@ -73,18 +67,22 @@ public class itemCommand implements ICommandable {
 				ChatColor.GOLD + stackSize + ChatColor.LIGHT_PURPLE + " " +
 				(myItem.getType().name() != null ? myItem.getType().name() : args[0]) +
 				ChatColor.RESET);
-
-		return true;
 	}
 
-	@Override
-	public String getPermission() {
-		return "item.give"; // basic permissions
-	}
+	@Command(
+			name = "pickpocket",
+			aliases = {},
+			player = true,
+			permission = "masters.pickpocket",
+			description = "Pickpocket a Player's inventory or Ender Chest",
+			usage = "/<command> [-e] <player>"
+	)
+	public void openInventory(CommandSender sender, String[] args){
+		// TODO implement me! I'm quite useful
+		if (args.length < 1)
+			throw new CommandArgumentException();
 
-	@Override
-	public boolean needPlayer() {
-		return false; // Command needs a player
+		boolean enderChest = args.length == 2 && args[0].equals("-e");
 	}
 
 	@SuppressWarnings("deprecation")
@@ -115,9 +113,4 @@ public class itemCommand implements ICommandable {
 
 		return new ItemStack(id, stackSize, (short) dmg);
 	}
-
-	private void log (String str) {
-		this.logger.log(Level.INFO, str);
-	}
-
 }

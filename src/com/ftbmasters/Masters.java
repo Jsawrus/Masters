@@ -1,5 +1,11 @@
 package com.ftbmasters;
 
+import com.ftbmasters.IO.fileHandler;
+import com.ftbmasters.commands.AdminCommands;
+import com.ftbmasters.commands.ChatCommands;
+import com.ftbmasters.commands.InventoryCommands;
+import com.ftbmasters.commands.SillyCommands;
+import com.ftbmasters.commands.TeleportCommands;
 import com.ftbmasters.listeners.chatHandler;
 import com.ftbmasters.listeners.playerHandler;
 import com.ftbmasters.listeners.serverHandler;
@@ -7,29 +13,29 @@ import com.ftbmasters.listeners.signHandler;
 import com.ftbmasters.listeners.snowballHandler;
 import com.ftbmasters.listeners.teleportHandler;
 import com.ftbmasters.listeners.worldHandler;
+import com.ftbmasters.misc.TagWorker;
 import com.ftbmasters.recipes.ExpandingSnowBall;
-import org.bukkit.command.CommandSender;
+import com.ftbmasters.utils.commands.CommandManager;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.ftbmasters.IO.fileHandler;
-import com.ftbmasters.misc.TagWorker;
 
 public class Masters extends JavaPlugin {
 
 	protected Plugin plugin;
     protected CommandManager commandManager;
 
-	public Masters() {
-		super();
-		commandManager = new CommandManager(this, "masters");
-	}
-
 	public void onEnable() {
 		this.plugin = this;
 
-        this.commandManager.loadFromDescription(this.getDescription(), this.getClassLoader());
+		commandManager = new CommandManager(this);
+
+		this.commandManager.register(SillyCommands.class);
+		this.commandManager.register(ChatCommands.class);
+		this.commandManager.register(TeleportCommands.class);
+		this.commandManager.register(AdminCommands.class);
+		this.commandManager.register(InventoryCommands.class);
 
 		fileHandlers();
 
@@ -38,7 +44,7 @@ public class Masters extends JavaPlugin {
 
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        return commandManager.dispatch(sender, command, label, args);
+        return commandManager.dispatch(sender, command, args);
     }
 	
 	private void eventHandlers() {
