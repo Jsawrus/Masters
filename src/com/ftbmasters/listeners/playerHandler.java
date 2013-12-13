@@ -1,34 +1,25 @@
 package com.ftbmasters.listeners;
 
-import java.util.HashMap;
-import java.util.Random;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.EntityEffect;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import com.ftbmasters.IO.fileHandler;
+import com.ftbmasters.Masters;
+import com.ftbmasters.misc.PlayerList;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerBedEnterEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.ftbmasters.IO.fileHandler;
-import com.ftbmasters.misc.PlayerList;
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class playerHandler implements Listener {
 
-	private Plugin plugin;
+	private Masters plugin;
 
-	public playerHandler(Plugin pl) {
+	public playerHandler(Masters pl) {
 		Bukkit.getPluginManager().registerEvents(this, pl);
 		this.plugin = pl;
 	}
@@ -43,11 +34,9 @@ public class playerHandler implements Listener {
 	public void login(final PlayerLoginEvent evt) {
 		String ip = evt.getAddress().toString().substring(1, evt.getAddress().toString().length());
 		String name = evt.getPlayer().getName();
-		
-		int random = new Random().nextInt(100) / 10;
-		char playerColor = colours.charAt(random);
-		evt.getPlayer().setDisplayName(ChatColor.COLOR_CHAR + playerColor + evt.getPlayer().getName());
-		evt.getPlayer().setPlayerListName(ChatColor.COLOR_CHAR + playerColor + evt.getPlayer().getName());
+
+        this.plugin.getLogger().log(Level.INFO, "Refreshing nameplate for " + evt.getPlayer().getName());
+        this.plugin.getNameplateManager().refreshNameplate(evt.getPlayer());
 
 		address.put(name, ip);
 	}
@@ -56,7 +45,7 @@ public class playerHandler implements Listener {
 	public void death(final PlayerDeathEvent evt) {
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.getName() == evt.getEntity().getName())
+			if (pl.getName().equalsIgnoreCase(evt.getEntity().getName()))
 				break;
 
 			pl.sendMessage(evt.getEntity().getDisplayName() + ChatColor.RED + evt.getDeathMessage().substring(evt.getEntity().getName().length(), 0));
@@ -68,7 +57,7 @@ public class playerHandler implements Listener {
 
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void join(final PlayerJoinEvent evt) {
-		String name = evt.getPlayer().getName();
+		String name = evt.getPlayer().getDisplayName();
 		evt.setJoinMessage(null);
 		//int random = new Random().nextInt(100) / 10;
 		//String playerColor = colours[random];
@@ -76,7 +65,7 @@ public class playerHandler implements Listener {
 		//evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.getName() == evt.getPlayer().getName()) break;
+			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) break;
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(evt.getPlayer().getDisplayName() + ChatColor.GREEN + " has joined the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 				if (!evt.getPlayer().hasPlayedBefore()) {
@@ -91,9 +80,12 @@ public class playerHandler implements Listener {
 			}
 		}
 
+
 		// name colouring.
 
-	
+        if (!evt.getPlayer().hasPlayedBefore())
+            evt.getPlayer().sendMessage(
+                    ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("new_player").replaceAll("<player>", name)));
 
 		new PlayerList(evt.getPlayer());
 		evt.getPlayer().sendMessage(fileHandler.contents);
@@ -116,7 +108,7 @@ public class playerHandler implements Listener {
 		evt.setQuitMessage(null);
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.getName() == evt.getPlayer().getName()) break;
+			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) break;
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(ChatColor.GREEN + name + " left the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 			} else {
@@ -131,7 +123,9 @@ public class playerHandler implements Listener {
 		evt.setLeaveMessage(null);
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.getName() == evt.getPlayer().getName()) break;
+			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) {
+				break;
+			}
 			if (pl.hasPermission("masters.plugin.op")) {
 				pl.sendMessage(ChatColor.GREEN + name + " was kicked/crashed " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 			} else {
@@ -168,7 +162,7 @@ public class playerHandler implements Listener {
 				evt.getPlayer().getWorld().setTime(0);
 
 			} else {
-				Integer intg = new Integer((int) (120 - minutes));
+				Integer intg = (int) (120 - minutes);
 				evt.getPlayer().sendMessage(ChatColor.RED + "Please try again in " + intg + " minutes!");
 				evt.setCancelled(true);
 			}

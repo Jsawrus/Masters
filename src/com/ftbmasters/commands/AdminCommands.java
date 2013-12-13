@@ -15,13 +15,17 @@ public class AdminCommands {
 			aliases = {"mas"},
 			player = false,
 			permission = "masters.admin",
-			usage = "/<command>",
+			usage = "/<command> [save]",
 			description = "Masters administration command\n"+
-					"reloads configuration files."
+					"reloads or save configuration files."
 	)
 	public void masters(CommandSender sender, String[] args) {
         sender.sendMessage(ChatColor.GOLD + "Reloading configuration files...");
 		Masters.fileHandlers();
+        if (args[0].equals("save"))
+            Masters.getInstance().saveConfig();
+        else
+            Masters.getInstance().reloadConfig();
 	}
 
     @Command (
