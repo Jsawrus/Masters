@@ -60,6 +60,8 @@
         <javac classpath="${libs.dir}/${bukkit.name}" srcdir="${src.dir}" destdir="${classes.dir}"/>
         <copyfile src="config.yml" dest="${classes.dir}/config.yml"></copyfile>
         <copyfile src="plugin.yml" dest="${classes.dir}/plugin.yml"></copyfile>
+        <copyfile src="LICENSE" dest="${classes.dir}/LICENSE"></copyfile>
+        <copyfile src="README.md" dest="${classes.dir}/README.md"></copyfile>
     </target>
 
     <target name="package" depends="compile">
