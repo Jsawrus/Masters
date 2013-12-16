@@ -66,7 +66,7 @@ public class playerHandler implements Listener {
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) break;
-			if (pl.hasPermission("masters.plugin.op")) {
+			if (pl.hasPermission("group.mod")) {
 				pl.sendMessage(evt.getPlayer().getDisplayName() + ChatColor.GREEN + " has joined the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 				if (!evt.getPlayer().hasPlayedBefore()) {
 					pl.sendMessage(ChatColor.GREEN + "This is their first time on the server!");
@@ -83,7 +83,7 @@ public class playerHandler implements Listener {
 
 		// name colouring.
 
-        if (!evt.getPlayer().hasPlayedBefore())
+        if (!evt.getPlayer().hasPlayedBefore() && !evt.getPlayer().hasPermission("group.users"))
             evt.getPlayer().sendMessage(
                     ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("new_player").replaceAll("<player>", name)));
 
@@ -109,7 +109,7 @@ public class playerHandler implements Listener {
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) break;
-			if (pl.hasPermission("masters.plugin.op")) {
+			if (pl.hasPermission("masters.debug")) {
 				pl.sendMessage(ChatColor.GREEN + name + " left the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 			} else {
 				pl.sendMessage(ChatColor.GREEN + name + " has left the game");
@@ -126,7 +126,7 @@ public class playerHandler implements Listener {
 			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) {
 				break;
 			}
-			if (pl.hasPermission("masters.plugin.op")) {
+			if (pl.hasPermission("masters.debug")) {
 				pl.sendMessage(ChatColor.GREEN + name + " was kicked/crashed " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 			} else {
 				pl.sendMessage(ChatColor.GREEN + name + " has left the game");
@@ -140,14 +140,14 @@ public class playerHandler implements Listener {
 		Long time = System.nanoTime();
 		String name = evt.getPlayer().getName();
 
-		if (Bukkit.getServer().getOnlinePlayers().length <= 1) return;
+		if (Bukkit.getServer().getOnlinePlayers().length < 2) return;
 
 		if (slept.containsKey(name)) {
 			//check to see if currenttime - slepttime is different by 120m.
 			long sleptTime = slept.get(name);
 			long timeDifference = (time - sleptTime);
 
-			double minutes = (double) timeDifference / 1000000000.0 / 60;
+			int minutes = (int) ((int) timeDifference / 1000000000.0 / 60);
 
 			if (minutes >= 120) {
 				slept.remove(name);
@@ -162,8 +162,7 @@ public class playerHandler implements Listener {
 				evt.getPlayer().getWorld().setTime(0);
 
 			} else {
-				Integer intg = (int) (120 - minutes);
-				evt.getPlayer().sendMessage(ChatColor.RED + "Please try again in " + intg + " minutes!");
+				evt.getPlayer().sendMessage(ChatColor.RED + "Please try again in " + (120 - minutes) + " minutes!");
 				evt.setCancelled(true);
 			}
 

@@ -18,7 +18,7 @@ public class serverHandler implements Listener {
 	}
 
 	@EventHandler (priority = EventPriority.NORMAL)
-	public void server(final ServerListPingEvent evt) {
+	public void serverMotd(final ServerListPingEvent evt) {
 		evt.setMotd(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("motd")));
 		// max players is 69
 		evt.setMaxPlayers(maxPlayer);
