@@ -4,8 +4,10 @@ import com.ftbmasters.Masters;
 import com.ftbmasters.utils.commands.Command;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -44,5 +46,26 @@ public class AdminCommands {
 
         sender.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "World List:");
         sender.sendMessage(r + ChatColor.RESET);
+    }
+
+    @Command (
+            name = "setspawn",
+            aliases = {},
+            player = true,
+            permission = "masters.admin",
+            usage = "/<command>",
+            description = "Set the default spawn point in the current world"
+    )
+    public void setSpawn(CommandSender sender, String[] args) {
+        Player p = ((Player) sender).getPlayer();
+        Location l = p.getLocation();
+        int x = l.getBlockX();
+        int y = l.getBlockY();
+        int z = l.getBlockZ();
+        p.getWorld().setSpawnLocation(x, y, z);
+
+        sender.sendMessage(ChatColor.AQUA + "Spawn location set to " +
+                ChatColor.RED + x + " " + y + " " + z +
+                ChatColor.AQUA + " for world " + ChatColor.BOLD + l.getWorld().getName());
     }
 }
