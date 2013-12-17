@@ -48,12 +48,12 @@ public class NameplateManager {
         color = ChatColor.COLOR_CHAR + color;
 
         Team team = scoreboard.getPlayerTeam(player);
-        if (team == null) {
+        if (team == null)
             team = scoreboard.registerNewTeam(player.getName());
-            team.setPrefix(color);
-            team.setSuffix(ChatColor.RESET.toString());
-            team.addPlayer(player.getPlayer());
-        }
+
+        team.setPrefix(color);
+        team.setSuffix(ChatColor.RESET.toString());
+        team.addPlayer(player.getPlayer());
 
         player.setPlayerListName(color + player.getName());
         player.setDisplayName(color + player.getName());

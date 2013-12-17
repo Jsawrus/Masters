@@ -68,6 +68,6 @@ public class teleportHandler implements Listener {
 
 				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4 * 20, 4, true));
 			}
-		}.runTaskLater(this.plugin, 60); // teleport after 6 seconds
+		}.runTaskLater(this.plugin, 6 * 20); // teleport after 6 seconds
 	}
 }

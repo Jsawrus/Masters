@@ -48,41 +48,33 @@ public class playerHandler implements Listener {
 			if (pl.getName().equalsIgnoreCase(evt.getEntity().getName()))
 				break;
 
-			pl.sendMessage(evt.getEntity().getDisplayName() + ChatColor.RED +
-                    evt.getDeathMessage().substring(evt.getEntity().getName().length(), evt.getDeathMessage().length()));
+			pl.sendMessage(String.format("%s%s%s", evt.getEntity().getDisplayName(), ChatColor.RED, evt.getDeathMessage().substring(evt.getEntity().getName().length(), evt.getDeathMessage().length())));
 
 		}
-
-		evt.setDeathMessage(null);
+        evt.setDeathMessage(null);
 	}
 
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void join(final PlayerJoinEvent evt) {
 		String name = evt.getPlayer().getDisplayName();
 		evt.setJoinMessage(null);
-		//int random = new Random().nextInt(100) / 10;
-		//String playerColor = colours[random];
-		//evt.getPlayer().setDisplayName(playerColor + evt.getPlayer().getName());
-		//evt.getPlayer().setPlayerListName(playerColor + evt.getPlayer().getName());
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) break;
 			if (pl.hasPermission("group.mod")) {
 				pl.sendMessage(evt.getPlayer().getDisplayName() + ChatColor.GREEN + " has joined the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
 				if (!evt.getPlayer().hasPlayedBefore()) {
-					pl.sendMessage(ChatColor.GREEN + "This is their first time on the server!");
+					pl.sendMessage(String.format("%sThis is their first time on the server!", ChatColor.GREEN));
 				}
 			} else {
 				if (evt.getPlayer().hasPlayedBefore()) {
-					pl.sendMessage(evt.getPlayer().getDisplayName() + ChatColor.GREEN + " has joined the game");
+					pl.sendMessage(String.format("%s%s has joined the game", evt.getPlayer().getDisplayName(), ChatColor.GREEN));
 				} else {
-					pl.sendMessage(evt.getPlayer().getDisplayName() + ChatColor.GREEN + " has joined the game for the first time");
+					pl.sendMessage(String.format("%s%s has joined the game for the first time", evt.getPlayer().getDisplayName(), ChatColor.GREEN));
 				}
 			}
 		}
 
-
-		// name colouring.
 
         if (!evt.getPlayer().hasPlayedBefore() && !evt.getPlayer().hasPermission("group.users"))
             evt.getPlayer().sendMessage(
@@ -148,7 +140,7 @@ public class playerHandler implements Listener {
 			long sleptTime = slept.get(name);
 			long timeDifference = (time - sleptTime);
 
-			int minutes = (int) ((int) timeDifference / 1000000000.0 / 60);
+			Integer minutes = (int) (timeDifference / 1000000000.0 / 60);
 
 			if (minutes >= 120) {
 				slept.remove(name);
@@ -158,13 +150,23 @@ public class playerHandler implements Listener {
 					pl.sendMessage(evt.getPlayer().getDisplayName() + " slept through the night!");
 				}
 
-				evt.setCancelled(true);
-				evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
+				// evt.setCancelled(true);
 				evt.getPlayer().getWorld().setTime(0);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        evt.getPlayer().teleport(
+                                new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D),
+                                PlayerTeleportEvent.TeleportCause.PLUGIN);
+                    }
+                }.runTaskLater(plugin, 6*20L);
 
 			} else {
-				evt.getPlayer().sendMessage(ChatColor.RED + "Please try again in " + (120 - minutes) + " minutes!");
-				evt.setCancelled(true);
+				evt.getPlayer().sendMessage(
+                        String.format("%s%sThe bed is comfortable, but it seems you can't fall asleep", ChatColor.BOLD, ChatColor.GRAY));
+                evt.getPlayer().sendMessage(
+                        String.format("%s%sYou may try again in %d minutes!", ChatColor.ITALIC, ChatColor.DARK_GRAY, 120 - minutes));
+				// evt.setCancelled(true);
 			}
 
 
@@ -175,7 +177,7 @@ public class playerHandler implements Listener {
 			}
 
 
-			evt.setCancelled(true);
+			// evt.setCancelled(true);
 			evt.getPlayer().getWorld().setTime(0);
 			evt.getPlayer().teleport(new Location(evt.getPlayer().getWorld(), evt.getPlayer().getLocation().getX() + 0.5D, evt.getPlayer().getLocation().getY() + 1.0D, evt.getPlayer().getLocation().getZ() + 0.5D));
 		}

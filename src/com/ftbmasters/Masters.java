@@ -1,18 +1,8 @@
 package com.ftbmasters;
 
 import com.ftbmasters.IO.fileHandler;
-import com.ftbmasters.commands.AdminCommands;
-import com.ftbmasters.commands.ChatCommands;
-import com.ftbmasters.commands.InventoryCommands;
-import com.ftbmasters.commands.SillyCommands;
-import com.ftbmasters.commands.TeleportCommands;
-import com.ftbmasters.listeners.chatHandler;
-import com.ftbmasters.listeners.playerHandler;
-import com.ftbmasters.listeners.serverHandler;
-import com.ftbmasters.listeners.signHandler;
-import com.ftbmasters.listeners.snowballHandler;
-import com.ftbmasters.listeners.teleportHandler;
-import com.ftbmasters.listeners.worldHandler;
+import com.ftbmasters.commands.*;
+import com.ftbmasters.listeners.*;
 import com.ftbmasters.recipes.ExpandingSnowBall;
 import com.ftbmasters.utils.NameplateManager;
 import com.ftbmasters.utils.commands.CommandManager;
@@ -22,8 +12,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.logging.Level;
 
 public final class Masters extends JavaPlugin {
 
