@@ -65,7 +65,7 @@ public class NameplateManager {
         if (!config.getBoolean("health"))
             return;
         if (healthBar == null)
-            healthBar = scoreboard.registerNewObjective("showHealth", "health");
+            healthBar = scoreboard.registerNewObjective("showHealth", Criterias.HEALTH);
 
         healthBar.setDisplaySlot(DisplaySlot.BELOW_NAME);
         healthBar.setDisplayName(ChatColor.RED + "\u2764");
