@@ -48,7 +48,7 @@ public class playerHandler implements Listener {
 			if (pl.getName().equalsIgnoreCase(evt.getEntity().getName()))
 				break;
 
-			pl.sendMessage(String.format("%s%s%s", evt.getEntity().getDisplayName(), ChatColor.RED, evt.getDeathMessage().substring(evt.getEntity().getName().length(), evt.getDeathMessage().length())));
+			pl.sendMessage(String.format("%s%s%s", evt.getEntity().getDisplayName(), ChatColor.RED, evt.getDeathMessage().substring(evt.getEntity().getName().length()+4, evt.getDeathMessage().length())));
 
 		}
         evt.setDeathMessage(null);
