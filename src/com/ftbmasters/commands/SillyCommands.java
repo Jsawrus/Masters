@@ -66,7 +66,7 @@ public class SillyCommands {
         if (!args[0].matches("[1-79a-e]")) {
             throw new CommandArgumentException("wrong color format!");
         }
-        plugin.getConfig().set("nameplates.players." + sender.getName(), args[0]);
+        plugin.getConfig().set("nameplates.players." + sender.getName(), args[0].charAt(0));
         plugin.getNameplateManager().refreshNameplate(sender.getServer().getPlayer(sender.getName()));
     }
 
