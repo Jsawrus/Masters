@@ -58,7 +58,9 @@ public final class Masters extends JavaPlugin {
 		new teleportHandler(this);
 		new chatHandler(this);
 		new signHandler(this);
-		new snowballHandler(this, (new ExpandingSnowBall()).snowBall);
+
+        if (getConfig().getBoolean("expanding_snowball"))
+            new snowballHandler(this, (new ExpandingSnowBall()).snowBall);
 	}
 
 

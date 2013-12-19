@@ -1,6 +1,7 @@
 motd: "&3Kill &4Greg&r!"
 welcome: "Hello <player> and welcome to &1Masters&2Server&r!"
 new_player: "Get in contact with our staff to be promoted! You can use the command /staff"
+expanding_snowball: false
 nameplates:
   health: false
   players: []
