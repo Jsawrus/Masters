@@ -62,7 +62,7 @@ public class NameplateManager {
     private void setHealthBar () {
         Objective healthBar = scoreboard.getObjective("showHealth");
 
-        if (!config.getBoolean("health"))
+        if (!config.getBoolean("nameplates.healthbar"))
             return;
         if (healthBar == null)
             healthBar = scoreboard.registerNewObjective("showHealth", Criterias.HEALTH);
