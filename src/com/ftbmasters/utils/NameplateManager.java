@@ -22,7 +22,7 @@ public class NameplateManager {
     private int refreshInterval = 60000;
     private Timer timer;
 
-    private final String colours = "1234569abcde";
+    private final String colours = "1234569abc";
 
     public NameplateManager (Plugin plugin) {
         this.plugin = plugin;

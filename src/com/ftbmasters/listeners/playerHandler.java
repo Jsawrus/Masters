@@ -44,13 +44,13 @@ public class playerHandler implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void death(final PlayerDeathEvent evt) {
 
+        String message = String.format("%s%s%s", evt.getEntity().getDisplayName(), ChatColor.RED, evt.getDeathMessage().substring(evt.getEntity().getName().length()+4, evt.getDeathMessage().length()));
+
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.getName().equalsIgnoreCase(evt.getEntity().getName()))
-				break;
-
-			pl.sendMessage(String.format("%s%s%s", evt.getEntity().getDisplayName(), ChatColor.RED, evt.getDeathMessage().substring(evt.getEntity().getName().length()+4, evt.getDeathMessage().length())));
-
+            pl.sendMessage(message);
 		}
+
+        Bukkit.getConsoleSender().sendMessage(message);
         evt.setDeathMessage(null);
 	}
 
@@ -97,15 +97,15 @@ public class playerHandler implements Listener {
 
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void quit(final PlayerQuitEvent evt) {
-		String name = evt.getPlayer().getName();
+		String name = evt.getPlayer().getDisplayName();
 		evt.setQuitMessage(null);
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			if (pl.getName().equalsIgnoreCase(evt.getPlayer().getName())) break;
 			if (pl.hasPermission("masters.debug")) {
-				pl.sendMessage(ChatColor.GREEN + name + " left the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
-			} else {
-				pl.sendMessage(ChatColor.GREEN + name + " has left the game");
+				pl.sendMessage(name + ChatColor.GREEN + " left the game " + ChatColor.RED + "(" + ChatColor.WHITE + address.get(name) + ChatColor.RED + ")");
+            } else {
+				pl.sendMessage(name + ChatColor.GREEN  + " has left the game");
 			}
 		}
 	}
