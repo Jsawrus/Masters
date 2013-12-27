@@ -2,8 +2,11 @@ package com.ftbmasters.commands;
 
 import com.ftbmasters.utils.commands.Command;
 import com.ftbmasters.utils.commands.CommandArgumentException;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -78,12 +81,27 @@ public class InventoryCommands {
 			usage = "/<command> [-e] <player>"
 	)
 	public void openInventory(CommandSender sender, String[] args){
-		// TODO implement me! I'm quite useful
 		if (args.length < 1)
 			throw new CommandArgumentException();
 
 		boolean enderChest = args.length == 2 && args[0].equals("-e");
-	}
+
+        if (enderChest && args.length < 2)
+            throw new CommandArgumentException();
+
+        String targetName = enderChest? args[1] : args[0];
+        OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
+        Player p = Bukkit.getPlayer(sender.getName()).getPlayer();
+
+        try {
+            if (enderChest)
+                p.openInventory(((HumanEntity) target).getEnderChest());
+            else
+                p.openInventory(((HumanEntity) target).getInventory());
+        } catch (ClassCastException e) {
+            p.sendMessage(ChatColor.RED + "Can't open this inventory");
+        }
+    }
 
 	@SuppressWarnings("deprecation")
 	private ItemStack getItem(String name, int stackSize) {
