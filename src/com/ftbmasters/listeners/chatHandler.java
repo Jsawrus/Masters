@@ -26,6 +26,7 @@ public class chatHandler implements Listener {
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			pl.sendMessage("<" + name + ChatColor.WHITE + "> " + ChatColor.GRAY + message);
 		}
+        Bukkit.getConsoleSender().sendMessage(String.format("<%s> %s", evt.getPlayer().getName(), message));
 
 		evt.setCancelled(true);
 	}
