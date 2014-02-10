@@ -1,6 +1,7 @@
 package com.ftbmasters.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,22 +13,15 @@ import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.plugin.Plugin;
 
 public class worldHandler implements Listener {
-
-	public worldHandler(Plugin pl) {
+    public worldHandler(Plugin pl) {
 		Bukkit.getPluginManager().registerEvents(this, pl);
-	}
-
-	@EventHandler (priority = EventPriority.NORMAL)
-	public void weather(final WeatherChangeEvent evt) {
-		// until i can figure out how to manage weather..
-		evt.setCancelled(true);
 	}
 
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void unload(final WorldUnloadEvent evt) {
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.hasPermission("masters.plugin.op")) {
-				//pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been unloaded.");
+			if (pl.hasPermission("masters.debug")) {
+				pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been unloaded.");
 			}
 		}
 	}
@@ -41,8 +35,8 @@ public class worldHandler implements Listener {
 		}
 
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.hasPermission("masters.plugin.op")) {
-				//pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been loaded by " + players + ".");
+			if (pl.hasPermission("masters.debug")) {
+				pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been loaded by " + players + ".");
 			}
 		}
 
@@ -53,11 +47,11 @@ public class worldHandler implements Listener {
 
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void load(final WorldSaveEvent evt) {
-	    /*for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
-			if (pl.hasPermission("masters.plugin.op")) {
+	    for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			if (pl.hasPermission("masters.debug")) {
 				pl.sendMessage(ChatColor.RED + "World " + evt.getWorld().getName() + " has been saved.");
 			}
-		}*/
+		}
 	}
 
 }

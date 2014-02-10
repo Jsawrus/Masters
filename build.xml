@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="masters" default="all">
+
+    <property environment="env"/>
+    <!-- Properties -->
+
+    <property name="env.BUILD_NUMBER" value="4"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="src.dir" value="src"/>
+
+    <property name="libs.dir" value="${build.dir}/lib"/>
+
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}/dist"/>
+
+    <property name="mc.version" value="1.6.4"/>
+
+    <property name="bukkit.version" value="R2.1"/>
+    <!-- odd bukkit build numbers -->
+    <property name="bukkit.build" value="02391"/>
+
+    <property name="plugin.version" value="0.0.2"/>
+    <property name="plugin.name" value="Masters"/>
+
+    <property name="bukkit.name" value="craftbukkit-${mc.version}-${bukkit.version}.jar"/>
+
+    <available property="bukkit-exists" file="${libs.dir}/${bukkit.name}"/>
+
+    <condition property="out-of-date">
+        <not>
+            <and>
+                <available file="${libs.dir}/${bukkit.name}"/>
+            </and>
+        </not>
+    </condition>
+
+    <!-- Targets -->
+
+    <!-- Set full version -->
+    <target name="initialize-version"  depends="download-files" if="out-of-date">
+        <echo message="Starting build for ${plugin.name} v${plugin.version}"/>
+    </target>
+
+    <!-- Download necessary files -->
+    <target name="download-files" depends="download-bukkit"/>
+
+    <!-- Download bukkit (if it doesn't exist) -->
+    <target name="download-bukkit" unless="bukkit-exists">
+        <mkdir dir="${libs.dir}"></mkdir>
+        <get src="http://dl.bukkit.org/downloads/craftbukkit/get/${bukkit.build}_${mc.version}-${bukkit.version}/${bukkit.name}"
+             dest="${libs.dir}/${bukkit.name}" usetimestamp="True"/>
+    </target>
+
+
+    <target name="compile" depends="initialize-version">
+        <delete dir="${classes.dir}"></delete>
+        <mkdir dir="${classes.dir}"></mkdir>
+
+        <javac classpath="${libs.dir}/${bukkit.name}" srcdir="${src.dir}" destdir="${classes.dir}"/>
+        <copyfile src="config.yml" dest="${classes.dir}/config.yml"></copyfile>
+        <copyfile src="plugin.yml" dest="${classes.dir}/plugin.yml"></copyfile>
+        <copyfile src="LICENSE" dest="${classes.dir}/LICENSE"></copyfile>
+        <copyfile src="README.md" dest="${classes.dir}/README.md"></copyfile>
+    </target>
+
+    <target name="package" depends="compile">
+        <delete dir="${jar.dir}"></delete>
+        <mkdir dir="${jar.dir}"></mkdir>
+        <jar destfile="${jar.dir}/${plugin.name}-${env.BUILD_NUMBER}.jar" basedir="${classes.dir}"></jar>
+    </target>
+
+    <target name="all" depends="package">
+        <copy todir="bin">
+            <fileset dir="${jar.dir}"/>
+        </copy>
+    </target>
+
+
+</project>

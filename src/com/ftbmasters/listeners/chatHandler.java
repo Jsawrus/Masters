@@ -26,6 +26,7 @@ public class chatHandler implements Listener {
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			pl.sendMessage("<" + name + ChatColor.WHITE + "> " + ChatColor.GRAY + message);
 		}
+        Bukkit.getConsoleSender().sendMessage(String.format("<%s> %s", evt.getPlayer().getName(), message));
 
 		evt.setCancelled(true);
 	}
@@ -35,14 +36,14 @@ public class chatHandler implements Listener {
 		String msg = evt.getMessage();
 
 		if (msg.equalsIgnoreCase("/plugins") || msg.equalsIgnoreCase("/pl")) {
-			if (evt.getPlayer().hasPermission("masters.plugin.op")) {
+			if (evt.getPlayer().hasPermission("masters.debug")) {
 				return;
 			} else {
 				evt.getPlayer().sendMessage(ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action.");
 				return;
 			}
 		} else if (msg.equalsIgnoreCase("/ver") || msg.equalsIgnoreCase("/version")) {
-			if (evt.getPlayer().hasPermission("masters.plugin.op")) {
+			if (evt.getPlayer().hasPermission("masters.debug")) {
 				return;
 			} else {
 				evt.getPlayer().sendMessage(ChatColor.RED + "Sorry, you lack sufficient privileges to perform this action.");

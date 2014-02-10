@@ -22,12 +22,8 @@ public class signHandler implements Listener {
 	public void onSignChange(SignChangeEvent event) {
 		String line;
 		for (int i = 0; i < 4; i++) {
-			line = event.getLine(i).replaceAll("&([0-9a-r])", ChatColor.COLOR_CHAR + "$1");
+			line = ChatColor.translateAlternateColorCodes('&', event.getLine(i));
 			event.setLine(i, line);
 		}
-	}
-
-	private void log(String s) {
-		this.plugin.getLogger().log(Level.INFO, "[signHandler] " + s);
 	}
 }
